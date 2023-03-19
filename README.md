@@ -25,7 +25,7 @@ O sistema proposto é para pessoas que querem organizar melhor seus gastos finan
 
 ### Integrantes
 - Bruna Andrade Dias
-- Euller Saez Lage Silva
+- Euller Saez Lage Silva (desenvolvedor backend)
 - Leonardo Borges de Oliveira
 - Vinicius Rodrigues Oliveira 
 
