@@ -16,7 +16,6 @@
 </br>
 
 # MoneyHive
-</br>
 
 ## Sobre
 
@@ -30,7 +29,7 @@ A proposta é de criar um sistema de gerenciamento financeiro completo. Aqui o u
 - Bruna Andrade Dias - Desenvolvedora Front-end
 - Euller Saez Lage Silva - Desenvolvedor Back-end
 - Leonardo Borges de Oliveira - Desenvolvedor FullStack
-- Vinicius Rodrigues Oliveira 
+- Vinicius Rodrigues Oliveira - Desenvolvedor FullStack
 
 > Professor: Marco Tulio Valente
 
