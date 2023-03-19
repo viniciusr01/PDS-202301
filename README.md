@@ -9,7 +9,7 @@
 <p> <h2> TP - Prática em Desenvolvimento de Software </h2> </p>
 
   
-| [Sobre](#Sobre) | [Integrantes](#integrantes) | [Possíveis features](#possíveis-features) | [Possíveis Tecnologias](#possíveis-tecnologias) |
+| [Sobre](#Sobre) | [Integrantes](#integrantes) | [Features](#features) | [Tecnologias](#tecnologias) |
 | - | - | - | - |
 </div>
 
