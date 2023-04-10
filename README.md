@@ -34,7 +34,7 @@ A proposta é de criar um sistema de gerenciamento financeiro completo. Aqui o u
 </br>
 
 ### Tecnologias
-- Front-end: JavaScript - Framework: React.JS
+- Front-end: JavaScript - Biblioteca: React.JS
 - Back-end:  Python - Framework: Flask - Arquitetura: Hexagonal
 - Banco de dados: PostgreSQL
 
