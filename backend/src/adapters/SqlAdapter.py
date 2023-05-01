@@ -5,7 +5,7 @@ import sqlite3
 
 class SqlAdapter(ISql):
     def __init__(self) -> None:
-        self.db = '/mnt/c/Users/beolo/Documents/UFMG/PDS/PDS-202301/backend/db/db'
+        self.db = 'backend/db/db'
 
 
     def AddExpense(self, user_cpf: str, expense: dict):
