@@ -27,9 +27,9 @@ python3 /backend/app.py
 ## Serviços
 * **MakeTransaction:** Espera receber os dados de uma transação, seja ela de débito ou crédito, referente a uma conta ou a 
 um cartão de crédito e salva esses dados no banco.
-**Rota:** {base}/transaction/
-**Header:** ['Content-Type']: 'application/json'
-**Body:** 
+  * **Rota:** {base}/transaction/
+  * **Header:** ['Content-Type']: 'application/json'  
+  * **Body:** 
 ```json
 {
     "user":{
