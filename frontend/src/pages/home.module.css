@@ -1,0 +1,43 @@
+
+.logo {
+    padding-top: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+
+}
+
+.texto{
+    display: block;
+    padding-left: 15%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+
+}
+
+.h1{
+    color: #7A631D;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 75px;
+    margin-top: 0;
+    margin-bottom: 0;
+
+}
+
+.h1 strong {
+    color: #DEAA0D;
+}
+
+
+.simbolo{
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 30%;
+}
+
+
