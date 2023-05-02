@@ -1,4 +1,4 @@
-from src.utils.TransactionType import TransactionType
+from src.domain.value_objects.TransactionType import TransactionType
 from src.domain.entities.Transaction import Transaction
 
 class Expense(Transaction):

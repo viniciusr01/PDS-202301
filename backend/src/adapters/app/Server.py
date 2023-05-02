@@ -5,7 +5,6 @@ def CreateApp():
     app = Flask(__name__)
     app.register_blueprint(transaction, url_prefix='/transaction')
 
-
     @app.route("/")
     def hello_world():
         return "<p>Hello, World!</p>"
