@@ -4,6 +4,7 @@ from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.TransactionFactory import TransactionFactory
 
 
+
 transaction = Blueprint('transaction', __name__,)
 
 @transaction.route('/', methods = ['POST'])

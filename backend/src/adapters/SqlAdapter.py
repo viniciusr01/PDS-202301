@@ -1,3 +1,5 @@
+from src.domain.entities.BankAccount import BankAccount
+from src.domain.entities.CreditCard import CreditCard
 from src.domain.gates.ISql import ISql
 from ..utils.ValidObject import ValidObject
 import sqlite3
@@ -83,28 +85,98 @@ class SqlAdapter(ISql):
 
         return res
 
-    def RetrieveExpenseFromAccount(self, id_account: str, date: date) -> list[Expense]:
-        SQL_QUERY = f'''
-            SELECT description, value, reference_date, id_category, id_account, id_bill
-            FROM expense e
-            WHERE e.id_account = '{id_account}'
-            AND e.reference_date <= '{date}'
-        '''
+    def RetrieveExpenseFromAccount(self, id_account: str | None = None, 
+                                   id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
+        
+        if(id_account is None):
+            SQL_QUERY = f'''
+                SELECT description, value, reference_date, id_category, id_account, id_bill
+                FROM expense e
+                WHERE e.id_bill = '{id_bill}'
+            '''
+
+        else:
+            SQL_QUERY = f'''
+                SELECT description, value, reference_date, id_category, id_account, id_bill
+                FROM expense e
+                WHERE e.id_account = '{id_account}'
+                AND e.reference_date <= '{date}'
+            '''
         expenses = self.__execute__(SQL_QUERY)
         print(expenses)
 
         res = []
 
-        for description, value, reference_date, id_category, id_account in expenses:
+        for description, value, reference_date, id_category, id_account, id_bill in expenses:
             res.append(Expense(
                 description,
                 value,
                 reference_date,
                 id_category,
                 id_account = id_account,
+                id_bill= id_bill
             ))
 
         return res
+
+    def RetrieveAccountsFromUser(self, user_cpf: int) -> list[BankAccount]:
+        SQL_QUERY = f'''
+            SELECT id, name, description, id_bank, fees, color
+            FROM account a
+            WHERE a.cpf_user = '{user_cpf}'
+        '''
+        accounts = self.__execute__(SQL_QUERY)
+        print(accounts)
+
+        res = []
+
+        for id, name, description, id_bank, fees, color in accounts:
+            res.append(BankAccount(
+                id,
+                name, 
+                description,
+                id_bank,
+                fees,
+                color
+            ))
+
+        return res
+    
+    def RetrieveCreditCardsFromUser(self, user_cpf: int, date: date) -> list[CreditCard]:
+        SQL_QUERY = f'''
+            SELECT id, name, description, fees, color, number_closure, number_deadline
+            FROM credit_card c
+            WHERE c.cpf_user = '{user_cpf}'
+        '''
+
+        creditCards = self.__execute__(SQL_QUERY)
+        print(creditCards)
+
+        res = []
+
+        for id, name, description, fees, color, number_closure, number_deadline in creditCards:
+            GET_CURRENT_BILL = f'''
+                select id
+                from bill b
+                where b.month_year = "{str(date.month) + '/' + str(date.year)}"
+                and b.id_credit_card = "{str(id)}"
+            '''
+            current_bill = self.__execute__(GET_CURRENT_BILL)
+            current_bill, = current_bill[0]
+
+            res.append(CreditCard(
+                id,
+                name, 
+                description,
+                number_closure,
+                number_deadline,
+                current_bill,
+                color,
+                fees
+            ))
+
+        return res
+
 
     def __execute__(self, sql_query: str):
         self.__init_cursor__()
