@@ -1,5 +1,5 @@
 from src.domain.entities.Transaction import Transaction
-from src.utils.TransactionType import TransactionType
+from src.domain.value_objects.TransactionType import TransactionType
 
 class Income(Transaction):
     def __init__(self, description, value, reference_date, id_category) -> None:

@@ -4,6 +4,7 @@ from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.TransactionFactory import TransactionFactory
 
 
+
 transaction = Blueprint('transaction', __name__,)
 
 @transaction.route('/', methods = ['POST'])
@@ -15,8 +16,7 @@ def CreateTransaction():
 
         data = request.get_json()
 
-        MakeTransaction(SqlAdapter(), 
-                        data['user']['cpf'], 
+        MakeTransaction(SqlAdapter()).make(data['user']['cpf'], 
                         TransactionFactory().make(obj=data['transaction']))
 
         return jsonify(msg = "Sucesso")

@@ -1,5 +1,5 @@
 from src.utils.ValidObject import ValidObject
-from src.utils.TransactionType import TransactionType
+from src.domain.value_objects.TransactionType import TransactionType
 from src.domain.entities.Expense import Expense 
 from src.domain.entities.Income import Income 
 from src.domain.entities.Transaction import Transaction   
