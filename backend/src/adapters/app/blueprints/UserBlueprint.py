@@ -1,12 +1,12 @@
 from flask import Blueprint, jsonify
 from src.domain.services.RetrieveUserAccounts import RetrieveUserAccounts
 from src.adapters.SqlAdapter import SqlAdapter
-from src.utils.dto.RetrieveUserAccountDTO import RetrieveUserAccountDTO
+from src.domain.gates.dto.RetrieveUserAccountDTO import RetrieveUserAccountDTO
 
 user = Blueprint('user', __name__,)
 
 @user.route('/accounts/<user_id>', methods = ['GET'])
-def CreateTransaction(user_id: int):
+def RetrieveUserAccount(user_id: int):
     try:
         accounts = RetrieveUserAccounts(SqlAdapter()).make(user_id)
         res = RetrieveUserAccountDTO().make(accounts)
