@@ -9,11 +9,11 @@ class ISql:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def AddIncome(self, user_cpf: str, income: dict) -> None:
+    def AddIncome(self, income: dict) -> None:
         pass
     
     @abstractmethod
-    def AddExpense(self, user_cpf: str, expense: dict) -> None:
+    def AddExpense(self, expense: dict) -> None:
         pass
 
     @abstractmethod

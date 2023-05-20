@@ -21,5 +21,9 @@ def CreateTransaction():
 
         return jsonify(msg = "Sucesso")
 
+    except TypeError as e:
+        return jsonify(str(e)), 400
+         
+
     except Exception as e:
-        return jsonify(str(e))
+        return jsonify(str(e)), 500

@@ -13,33 +13,52 @@ class SqlAdapter(ISql):
     def __init__(self) -> None:
         self.db = 'db/db'
 
-    def AddExpense(self, user_cpf: str, expense: dict):
+    def AddExpense(self, expense: dict):
         if not ValidObject().make(expense, [
             "description", 
             "value", 
             "reference_date",
             "id_account", 
             "id_category",
-            "id_bill"
+            "id_bill",
+            "is_recurrency",
+            "end_date"
         ]):
             raise Exception('''Some key is missing. The following keys are expected:
-                description, value, reference_date, id_account, id_category, id_bill''')
+                description, value, reference_date, id_account, id_category, id_bill, is_recurrency, end_date''')
 
-        SQL_QUERY = f'''
-            INSERT INTO income (description, value, reference_date, id_account, id_category)
-            VALUES(
-                {expense['description']},
-                {expense['value']},
-                {expense['reference_date']},
-                {user_cpf},
-                {expense['id_category']}
-            )
-        '''
+        if expense['id_account'] != None:
+            SQL_QUERY = f'''
+                INSERT INTO income (description, value, reference_date, id_account, id_category, is_recurrency, recurrency_end_date)
+                VALUES(
+                    {expense['description']},
+                    {expense['value']},
+                    {expense['reference_date']},
+                    {expense['id_account']},
+                    {expense['id_category']},
+                    {expense['is_recurrency']},
+                    {expense['end_date']}
+                )
+            '''
+
+        else:
+            SQL_QUERY = f'''
+                INSERT INTO income (description, value, reference_date, id_bill, id_category, is_recurrency, recurrency_end_date)
+                VALUES(
+                    {expense['description']},
+                    {expense['value']},
+                    {expense['reference_date']},
+                    {expense['id_bill']},
+                    {expense['id_category']},
+                    {expense['is_recurrency']},
+                    {expense['end_date']}
+                )
+            '''
 
         res = self.__execute__(SQL_QUERY)
         print(res)
 
-    def AddIncome(self, user_cpf: str, income: dict):
+    def AddIncome(self, income: dict):
         if not ValidObject().make(income, [
             "description", 
             "value", 
@@ -52,11 +71,11 @@ class SqlAdapter(ISql):
         SQL_QUERY = f'''
             INSERT INTO income ("description", "value", "reference_date", "id_account", "id_category")
             VALUES(
-                '{str(income['description'])}',
-                '{str(income['value'])}',
-                '{str(income['reference_date'])}',
-                '{str(user_cpf)}',
-                '{str(income['id_category'])}'
+                '{income['description']}',
+                '{income['value']}',
+                '{income['reference_date']}',
+                '{income['id_account']}',
+                '{income['id_category']}'
             )
         '''
         
@@ -81,6 +100,7 @@ class SqlAdapter(ISql):
                 value,
                 reference_date,
                 id_category,
+                id_account
             ))
 
         return res
@@ -141,7 +161,8 @@ class SqlAdapter(ISql):
             ))
 
         return res
-    
+
+
     def RetrieveCreditCardsFromUser(self, user_cpf: int, date: date) -> list[CreditCard]:
         SQL_QUERY = f'''
             SELECT id, name, description, fees, color, number_closure, number_deadline
@@ -155,14 +176,7 @@ class SqlAdapter(ISql):
         res = []
 
         for id, name, description, fees, color, number_closure, number_deadline in creditCards:
-            GET_CURRENT_BILL = f'''
-                select id
-                from bill b
-                where b.month_year = "{str(date.month) + '/' + str(date.year)}"
-                and b.id_credit_card = "{str(id)}"
-            '''
-            current_bill = self.__execute__(GET_CURRENT_BILL)
-            current_bill, = current_bill[0]
+            current_bill = self.__GetBillByDate__(id, date)
 
             res.append(CreditCard(
                 id,
@@ -177,6 +191,26 @@ class SqlAdapter(ISql):
 
         return res
 
+    def __GetBillByDate__(self, credit_card_id: int, date: date):
+        GET_CURRENT_BILL = f'''
+                select id
+                from bill b
+                where b.month_year = "{str(date.month) + '/' + str(date.year)}"
+                and b.id_credit_card = "{str(credit_card_id)}"
+            '''
+        
+        current_bill = self.__execute__(GET_CURRENT_BILL)
+
+        if len(current_bill) == 0:
+            GET_CURRENT_BILL = f'''
+                insert into bill (month_year, id_credit_card)
+                values ("{str(date.month) + '/' + str(date.year)}", "{str(credit_card_id)}")        
+                returning id
+            '''
+            current_bill = self.__execute__(GET_CURRENT_BILL)
+        
+        current_bill, = current_bill[0]
+        return current_bill
 
     def __execute__(self, sql_query: str):
         self.__init_cursor__()

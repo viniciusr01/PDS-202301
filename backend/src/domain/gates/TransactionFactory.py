@@ -18,7 +18,7 @@ class TransactionFactory:
             'id_category',
             'type'
         ]):
-            raise Exception("Bad Request: Some key for a Transaction is missing.")
+            raise TypeError("Bad Request: Some key for a Transaction is missing.")
         
         if obj['type'] == TransactionType.Expense.value:
             if (obj['id_account'] and not obj['id_bill']):
@@ -39,7 +39,7 @@ class TransactionFactory:
                     id_bill=obj['id_bill'],
                 )
                 
-            raise Exception("Bad Request: Some key for a Expensse Transaction is missing.")
+            raise TypeError("Bad Request: Some key for a Expensse Transaction is missing.")
 
 
         if obj['type'] == TransactionType.Income.value:
@@ -48,6 +48,7 @@ class TransactionFactory:
                 value=obj['value'],
                 reference_date=obj['reference_date'],
                 id_category=obj['id_category'],
+                id_account=obj['id_account']
             )
 
-        raise Exception("Bad Request: Transaction Type is wrong.")
+        raise TypeError("Bad Request: Transaction Type is wrong.")

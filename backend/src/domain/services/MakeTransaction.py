@@ -8,20 +8,23 @@ class MakeTransaction:
         self.db = db
 
     def make(self, user_cpf: str, transaction: Transaction):
-        if self.transaction.type == TransactionType.Expense: # type: ignore
+        if transaction.type == TransactionType.Expense: # type: ignore
             return self.db.AddExpense(user_cpf, {
                 "description": transaction.description, 
                 "value": transaction.value, 
                 "reference_date": transaction.reference_date,
                 "id_account": transaction.id_account,  # type: ignore
                 "id_category": transaction.id_category,
-                "id_bill": transaction.id_bill # type: ignore
+                "id_bill": transaction.id_bill, # type: ignore
+                "is_recurrency": transaction.is_recurrency, # type: ignore
+                "recurrency_end_date": transaction.end_date # type: ignore
             })
 
         if transaction.type == TransactionType.Income: # type: ignore
-            return self.db.AddIncome(user_cpf, {
+            return self.db.AddIncome({
                 "description": transaction.description, 
                 "value": transaction.value, 
                 "reference_date": transaction.reference_date,
                 "id_category": transaction.id_category,
+                "id_account": transaction.id_account #type: ignore
             })
