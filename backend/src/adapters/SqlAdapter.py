@@ -29,29 +29,29 @@ class SqlAdapter(ISql):
 
         if expense['id_account'] != None:
             SQL_QUERY = f'''
-                INSERT INTO income (description, value, reference_date, id_account, id_category, is_recurrency, recurrency_end_date)
+                INSERT INTO expense (description, value, reference_date, id_account, id_category, is_recurrency, recurrency_end_date)
                 VALUES(
-                    {expense['description']},
-                    {expense['value']},
-                    {expense['reference_date']},
-                    {expense['id_account']},
-                    {expense['id_category']},
-                    {expense['is_recurrency']},
-                    {expense['end_date']}
+                    '{expense['description']}',
+                    '{expense['value']}',
+                    '{expense['reference_date']}',
+                    '{expense['id_account']}',
+                    '{expense['id_category']}',
+                    '{expense['is_recurrency']}',
+                    '{expense['end_date']}'
                 )
             '''
 
         else:
             SQL_QUERY = f'''
-                INSERT INTO income (description, value, reference_date, id_bill, id_category, is_recurrency, recurrency_end_date)
+                INSERT INTO expense (description, value, reference_date, id_bill, id_category, is_recurrency, recurrency_end_date)
                 VALUES(
-                    {expense['description']},
-                    {expense['value']},
-                    {expense['reference_date']},
-                    {expense['id_bill']},
-                    {expense['id_category']},
-                    {expense['is_recurrency']},
-                    {expense['end_date']}
+                    '{expense['description']}',
+                    '{expense['value']}',
+                    '{expense['reference_date']}',
+                    '{expense['id_bill']}',
+                    '{expense['id_category']}',
+                    '{expense['is_recurrency']}',
+                    '{expense['end_date']}'
                 )
             '''
 

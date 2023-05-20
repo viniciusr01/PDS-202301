@@ -16,14 +16,13 @@ def CreateTransaction():
 
         data = request.get_json()
 
-        MakeTransaction(SqlAdapter()).make(data['user']['cpf'], 
-                        TransactionFactory().make(obj=data['transaction']))
+        return jsonify(MakeTransaction(SqlAdapter()).make(TransactionFactory().make(obj=data['transaction'])))
 
-        return jsonify(msg = "Sucesso")
 
     except TypeError as e:
         return jsonify(str(e)), 400
          
 
     except Exception as e:
-        return jsonify(str(e)), 500
+        print(e.with_traceback, e.args)
+        return "An internal error occurred. Please, try again later.", 500
