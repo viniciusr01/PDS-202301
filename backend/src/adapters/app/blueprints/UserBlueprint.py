@@ -13,5 +13,10 @@ def RetrieveUserAccount(user_id: int):
 
         return jsonify(res)
 
+    except TypeError as e:
+        return jsonify(str(e)), 400
+         
+
     except Exception as e:
-        return jsonify(str(e))
+        print(e.args, e.with_traceback)
+        return "An internal error occurred. Please, try again later.", 500

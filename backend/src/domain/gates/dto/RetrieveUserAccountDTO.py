@@ -26,10 +26,16 @@ class RetrieveUserAccountDTO:
                     "Description": account.description,
                     "Fees": account.fees,
                     "Color": account.color,
-                    "Balance": account.balance,
+                    # "Balance": account.balance,
                     "Closure": account.closure_day, # type: ignore
                     "Deadline": account.payment_deadline, # type: ignore
-                    "Bill Month": account.current_bill # type: ignore
+                    "Bill": {
+                        "Balance": account.current_bill.value, # type: ignore
+                        "MonthYear": account.current_bill.moth_year, # type: ignore
+                        "Id": account.current_bill.id, # type: ignore
+                        # TODO: CREATE JSON EXPENSES
+                        # "Expenses": account.current_bill.expenses # type: ignore
+                    } 
                 }
             
             aux_list.append(aux)
