@@ -30,7 +30,7 @@ class TransactionFactory:
             
                 match obj['expense_type']:
                     case ExpenseType.Singular.value:
-                        if ('id_account' in obj.keys() and not 'id_bill' in obj.keys()):
+                        if ('id_account' in obj.keys() and not 'id_credit_card' in obj.keys()):
                             return Expense(
                                 description=obj['description'],
                                 value=obj['value'],
@@ -39,16 +39,16 @@ class TransactionFactory:
                                 id_account=obj['id_account'],
                             )
 
-                        if (not 'id_account' in obj.keys() and 'id_bill' in obj.keys()):
+                        if (not 'id_account' in obj.keys() and 'id_credit_card' in obj.keys()):
                             return Expense(
                                 description=obj['description'],
                                 value=obj['value'],
                                 reference_date=obj['reference_date'],
                                 id_category=obj['id_category'],
-                                id_bill=obj['id_bill'],
+                                id_credit_card=obj['id_credit_card'],
                             )
 
-                        raise TypeError("Bad Request: For expense should be passed the id_bill or id_account but not both of them.")
+                        raise TypeError("Bad Request: For expense should be passed the id_credit_card or id_account but not both of them.")
 
                     case ExpenseType.Recurrency.value:
                         if not ValidObject().make(obj, [
@@ -56,7 +56,7 @@ class TransactionFactory:
                         ]):
                             raise TypeError("Bad Request: For Recurrency expense, recurrency_end_date is needed.")
 
-                        if ('id_account' in obj.keys() and not 'id_bill' in obj.keys()):
+                        if ('id_account' in obj.keys() and not 'id_credit_card' in obj.keys()):
                             return Expense(
                                 description=obj['description'],
                                 value=obj['value'],
@@ -67,16 +67,16 @@ class TransactionFactory:
                                 end_date=obj['recurrency_end_date']
                             )
 
-                        if (not 'id_account' in obj.keys() and 'id_bill' in obj.keys()):
+                        if (not 'id_account' in obj.keys() and 'id_credit_card' in obj.keys()):
                             return Expense(
                                 description=obj['description'],
                                 value=obj['value'],
                                 reference_date=obj['reference_date'],
                                 id_category=obj['id_category'],
-                                id_bill=obj['id_bill'],
+                                id_credit_card=obj['id_credit_card'],
                             )
 
-                        raise TypeError("Bad Request: For expense should be passed the id_bill or id_account but not both of them.")
+                        raise TypeError("Bad Request: For expense should be passed the id_credit_card or id_account but not both of them.")
 
                     case ExpenseType.Financed.value:
                         if not ValidObject().make(obj, [
@@ -84,17 +84,17 @@ class TransactionFactory:
                         ]):
                             raise TypeError("Bad Request: For Financed expense number_of_stallments is needed.")
 
-                        if (not 'id_account' in obj.keys() and 'id_bill' in obj.keys()):
+                        if (not 'id_account' in obj.keys() and 'id_credit_card' in obj.keys()):
                             return Expense(
                                 description=obj['description'],
                                 value=obj['value'],
                                 reference_date=obj['reference_date'],
                                 id_category=obj['id_category'],
-                                id_bill=obj['id_bill'],
+                                id_credit_card=obj['id_credit_card'],
                                 number_of_installments=int( obj['number_of_stallments'])
                             )
 
-                        raise TypeError("Bad Request: For expense should be passed the id_bill or id_account but not both of them.")
+                        raise TypeError("Bad Request: For expense should be passed the id_credit_card or id_account but not both of them.")
                     
                     case _:
                         raise TypeError("Bad Request: ExpenseType is not from a valid type.")

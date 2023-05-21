@@ -1,4 +1,5 @@
 from src.domain.entities.BankAccount import BankAccount
+from src.domain.entities.Bill import Bill
 from src.domain.entities.CreditCard import CreditCard
 from src.domain.gates.ISql import ISql
 from ..utils.ValidObject import ValidObject
@@ -11,8 +12,10 @@ from typing import Any
 
 class SqlAdapter(ISql):
     def __init__(self) -> None:
+        # TODO: COLOCAR ISSO NUMA VARIÁVEL DE AMBIENTE
         self.db = 'db/db'
 
+    # TODO: CONFERIR SE AS CLASSES DENTRO DO ADAPTER PODEM RECEBER ENTIDADES AO INVÉS DE DICIONÁRIO (ACREDITO QUE POSSA)
     def AddExpense(self, expense: dict):
         if not ValidObject().make(expense, [
             "description", 
@@ -20,7 +23,7 @@ class SqlAdapter(ISql):
             "reference_date",
             "id_account", 
             "id_category",
-            "id_bill",
+            "id_credit_card",
             "is_recurrency",
             "end_date"
         ]):
@@ -28,6 +31,7 @@ class SqlAdapter(ISql):
                 description, value, reference_date, id_account, id_category, id_bill, is_recurrency, end_date''')
 
         if expense['id_account'] != None:
+
             SQL_QUERY = f'''
                 INSERT INTO expense (description, value, reference_date, id_account, id_category, is_recurrency, recurrency_end_date)
                 VALUES(
@@ -42,13 +46,17 @@ class SqlAdapter(ISql):
             '''
 
         else:
+            bill = self.__GetBillByDate__(expense['id_credit_card'],expense['reference_date'])
+
+
+
             SQL_QUERY = f'''
                 INSERT INTO expense (description, value, reference_date, id_bill, id_category, is_recurrency, recurrency_end_date)
                 VALUES(
                     '{expense['description']}',
                     '{expense['value']}',
                     '{expense['reference_date']}',
-                    '{expense['id_bill']}',
+                    '{ bill }',
                     '{expense['id_category']}',
                     '{expense['is_recurrency']}',
                     '{expense['end_date']}'
@@ -176,7 +184,11 @@ class SqlAdapter(ISql):
         res = []
 
         for id, name, description, fees, color, number_closure, number_deadline in creditCards:
-            current_bill = self.__GetBillByDate__(id, date)
+            bill_id = self.__GetBillByDate__(id, date)
+            current_bill = Bill(
+                bill_id,
+                f"{date.month}/{date.year}",
+            )
 
             res.append(CreditCard(
                 id,
@@ -202,12 +214,12 @@ class SqlAdapter(ISql):
         current_bill = self.__execute__(GET_CURRENT_BILL)
 
         if len(current_bill) == 0:
-            GET_CURRENT_BILL = f'''
+            CREATE_BILL = f'''
                 insert into bill (month_year, id_credit_card)
                 values ("{str(date.month) + '/' + str(date.year)}", "{str(credit_card_id)}")        
                 returning id
             '''
-            current_bill = self.__execute__(GET_CURRENT_BILL)
+            current_bill = self.__execute__(CREATE_BILL)
         
         current_bill, = current_bill[0]
         return current_bill
@@ -235,9 +247,10 @@ class SqlAdapter(ISql):
         try:
             if self.cursor:
                 self.cursor.execute(query)
-                self.sqliteConnection.commit()
 
                 record = self.cursor.fetchall()
+                
+                self.sqliteConnection.commit()
                 
                 self.cursor.close()
 

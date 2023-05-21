@@ -12,12 +12,12 @@ class RetrieveAccountBalence:
     def make(self, account: Account,  date: date = date.today()) -> float:
         incomes = []
 
-        if isinstance(account, CreditCard):
-            expenses = self.db.RetrieveExpenseFromAccount(id_bill = account.current_bill, date = date) # type: ignore
-        
-        else:
-            expenses = self.db.RetrieveExpenseFromAccount(id_account = account.id, date = date)
-            incomes = self.db.RetrieveIncomeFromAccount(account.id, date)
+        # if isinstance(account, CreditCard):
+        #     expenses = self.db.RetrieveExpenseFromAccount(id_bill = account.current_bill.id) # type: ignore
+            
+        # else:
+        expenses = self.db.RetrieveExpenseFromAccount(id_account = account.id, date = date)
+        incomes = self.db.RetrieveIncomeFromAccount(account.id, date)
 
         balance = 0.0
 
