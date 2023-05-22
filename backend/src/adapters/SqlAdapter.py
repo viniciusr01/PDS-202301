@@ -90,7 +90,7 @@ class SqlAdapter(ISql):
         res = self.__execute__(SQL_QUERY)
         print(res)
 
-    def RetrieveIncomeFromAccount(self, id_account: str, date: date) -> list[Income]:
+    def RetrieveIncomesFromAccount(self, id_account: str, date: date) -> list[Income]:
         SQL_QUERY = f'''
             SELECT description, value, reference_date, id_category
             FROM income i
@@ -113,10 +113,10 @@ class SqlAdapter(ISql):
 
         return res
 
-    def RetrieveExpenseFromAccount(self, id_account: str | None = None, 
+    def RetrieveExpensesFromAccount(self, id_account: str | None = None, 
                                    id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
         
-        if(id_account is None):
+        if(id_bill is not None):
             SQL_QUERY = f'''
                 SELECT description, value, reference_date, id_category, id_account, id_bill
                 FROM expense e
@@ -170,6 +170,46 @@ class SqlAdapter(ISql):
 
         return res
 
+    def RetrieveSumIncomeFromAccount(self, id_account: str, date: date = date.today()) -> float:
+        GET_SUM_INCOME = f'''
+            SELECT SUM(e.value) as value
+            from income e 
+            where id_account  = "{id_account}"
+            and reference_date  <= "{ date }"
+            group by (id_account)
+            '''
+        
+        income = self.__execute__(GET_SUM_INCOME)
+        if len(income) == 0:
+            return 0.0
+
+        income, = income[0]
+        return income
+        
+
+    def RetrieveSumExpenseFromAccount(self, id_account: str | None = None, id_bill: str | None = None, date: date = date.today()) -> float:
+        if(id_account is not None):
+            GET_SUM_EXPENSE = f'''
+                SELECT SUM(e.value) as value
+                from expense e 
+                where id_account  = "{id_account}"
+                and reference_date  <= "{ date }"
+                group by (id_account)
+                '''
+        else:
+            GET_SUM_EXPENSE = f'''
+                SELECT SUM(e.value) as value
+                from expense e 
+                where id_bill  = "{id_bill}"
+                group by (id_bill)
+                '''
+            
+        expense = self.__execute__(GET_SUM_EXPENSE)
+        if len(expense) == 0:
+            return 0.0
+
+        expense, = expense[0]
+        return expense
 
     def RetrieveCreditCardsFromUser(self, user_cpf: int, date: date) -> list[CreditCard]:
         SQL_QUERY = f'''

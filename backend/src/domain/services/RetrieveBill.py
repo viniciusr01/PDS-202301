@@ -7,6 +7,6 @@ class RetrieveBill():
         self.db = db
 
     def make(self, account: CreditCard):
-            expenses = self.db.RetrieveExpenseFromAccount(id_bill = str(account.current_bill.id)) 
+            expenses = self.db.RetrieveExpensesFromAccount(id_bill = str(account.current_bill.id)) 
             for expense in expenses:
                  AddBillExpense().make(account.current_bill, expense)

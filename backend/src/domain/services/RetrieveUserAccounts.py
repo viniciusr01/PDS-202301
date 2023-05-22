@@ -1,7 +1,7 @@
 from datetime import date
 
 from src.domain.entities.Account import Account
-from src.domain.services.RetrieveBill import RetrieveBill
+from src.domain.services.RetrieveBillBalance import RetrieveBillBalance
 from ..gates.ISql import ISql
 from src.domain.services.RetrieveUserBankAccounts import RetrieveUserBankAccounts
 from src.domain.services.RetrieveAccountBalence import RetrieveAccountBalence
@@ -13,7 +13,7 @@ class RetrieveUserAccounts:
         self.retrieveAccount = RetrieveUserBankAccounts(self.db)
         self.retrieveCreditCards = RetrieveUserCreditCards(self.db)
         self.retrieveBalance = RetrieveAccountBalence(self.db)
-        self.retrieveBill = RetrieveBill(self.db)
+        self.retrieveBillBalance = RetrieveBillBalance(self.db)
 
     def make(self, user_cpf: int) -> list[Account]:
         res = []
@@ -21,8 +21,7 @@ class RetrieveUserAccounts:
         bank_accounts = self.retrieveAccount.make(user_cpf)
 
         for credit_card in credit_cards:
-            self.retrieveBill.make(credit_card)
-            # credit_card.balance = self.retrieveBalance.make(credit_card)
+            credit_card.current_bill.value = self.retrieveBillBalance.make(credit_card)
             res.append(credit_card)
 
         for bank_account in bank_accounts:
