@@ -90,12 +90,13 @@ class SqlAdapter(ISql):
         res = self.__execute__(SQL_QUERY)
         print(res)
 
-    def RetrieveIncomesFromAccount(self, id_account: str, date: date) -> list[Income]:
+    def RetrieveIncomesFromAccount(self, id_account: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
         SQL_QUERY = f'''
             SELECT description, value, reference_date, id_category
             FROM income i
             WHERE i.id_account = '{id_account}'
-            AND i.reference_date <= '{date}'
+            AND i.reference_date <= '{end_date}'
+            AND i.reference_date >= '{initial_date}'
         '''
         incomes = self.__execute__(SQL_QUERY)
         print(incomes)
@@ -114,13 +115,19 @@ class SqlAdapter(ISql):
         return res
 
     def RetrieveExpensesFromAccount(self, id_account: str | None = None, 
-                                   id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
+                                    id_credit_card: str | None = None, 
+                                    initial_date: date = date.today(), 
+                                    end_date: date = date.today()) -> list[Expense]:
         
-        if(id_bill is not None):
+        if(id_credit_card is not None):
+            bill = self.__GetBillByDate__(int(id_credit_card), initial_date)
+            
             SQL_QUERY = f'''
                 SELECT description, value, reference_date, id_category, id_account, id_bill
                 FROM expense e
-                WHERE e.id_bill = '{id_bill}'
+                WHERE e.id_bill = '{bill}'
+                AND e.reference_date <= '{end_date}'
+                AND e.reference_date >= '{initial_date}'
             '''
 
         else:
@@ -128,8 +135,10 @@ class SqlAdapter(ISql):
                 SELECT description, value, reference_date, id_category, id_account, id_bill
                 FROM expense e
                 WHERE e.id_account = '{id_account}'
-                AND e.reference_date <= '{date}'
+                AND e.reference_date <= '{end_date}'
+                AND e.reference_date >= '{initial_date}'
             '''
+
         expenses = self.__execute__(SQL_QUERY)
         print(expenses)
 

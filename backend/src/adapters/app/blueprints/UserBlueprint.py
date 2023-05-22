@@ -5,7 +5,7 @@ from src.domain.gates.dto.RetrieveUserAccountDTO import RetrieveUserAccountDTO
 
 user = Blueprint('user', __name__,)
 
-@user.route('/accounts/<user_id>', methods = ['GET'])
+@user.route('/<user_id>', methods = ['GET'])
 def RetrieveUserAccount(user_id: int):
     try:
         accounts = RetrieveUserAccounts(SqlAdapter()).make(user_id)
