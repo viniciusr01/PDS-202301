@@ -17,11 +17,19 @@ class ISql:
         pass
 
     @abstractmethod
-    def RetrieveIncomeFromAccount(self, id_account: str, date: date) -> list[Income]:
+    def RetrieveSumIncomeFromAccount(self, id_account: str, date: date = date.today()) -> float:
+        pass
+
+    @abstractmethod
+    def RetrieveSumExpenseFromAccount(self, id_account: str | None = None, id_bill: str | None = None, date: date = date.today()) -> float:
+        pass
+
+    @abstractmethod
+    def RetrieveIncomesFromAccount(self, id_account: str, date: date) -> list[Income]:
         pass
     
     @abstractmethod
-    def RetrieveExpenseFromAccount(self, id_account: str | None = None, id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
+    def RetrieveExpensesFromAccount(self, id_account: str | None = None, id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
         pass
 
     @abstractmethod
