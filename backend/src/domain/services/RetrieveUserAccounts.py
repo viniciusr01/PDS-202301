@@ -1,8 +1,8 @@
 from datetime import date
+from ..gates.ISql import ISql
 
 from src.domain.entities.Account import Account
 from src.domain.services.RetrieveBillBalance import RetrieveBillBalance
-from ..gates.ISql import ISql
 from src.domain.services.RetrieveUserBankAccounts import RetrieveUserBankAccounts
 from src.domain.services.RetrieveAccountBalence import RetrieveAccountBalence
 from src.domain.services.RetrieveUserCreditCards import RetrieveUserCreditCards

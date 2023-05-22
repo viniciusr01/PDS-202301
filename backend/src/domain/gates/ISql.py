@@ -25,11 +25,11 @@ class ISql:
         pass
 
     @abstractmethod
-    def RetrieveIncomesFromAccount(self, id_account: str, date: date) -> list[Income]:
+    def RetrieveIncomesFromAccount(self, id_account: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
         pass
     
     @abstractmethod
-    def RetrieveExpensesFromAccount(self, id_account: str | None = None, id_bill: str | None = None, date: date = date.today()) -> list[Expense]:
+    def RetrieveExpensesFromAccount(self, id_account: str | None = None, id_credit_card: str | None = None, initial_date: date = date.today(), end_date: date = date.today()) -> list[Expense]:
         pass
 
     @abstractmethod

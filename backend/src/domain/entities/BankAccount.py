@@ -1,5 +1,7 @@
 from src.domain.value_objects.DefaultColor import DefaultColor
+from src.domain.value_objects.AccountType import AccountType
 from src.domain.entities.Account import Account
+
 
 class BankAccount(Account):
     def __init__(self, 
@@ -11,4 +13,5 @@ class BankAccount(Account):
                  color: str = DefaultColor.code, 
                  balance: float = 0.0) -> None:
         super().__init__(id, name, description, fees, color, balance)
+        self.type = AccountType.BankAccount.value
         self.id_bank = id_bank
