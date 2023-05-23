@@ -1,0 +1,32 @@
+VALID_CPF = 92413119086
+VALID_ID_ACCOUNT = 1
+VALID_ID_CREDIT_CARD = 1
+
+POST {{URL_BASE}}/transaction/
+    {
+        "user":{
+            "cpf": "15899451742"
+        },
+        "transaction":{
+            "description": "Compra Parcelada",
+            "value": 50,
+            "reference_date": "2023-05-31",
+            "id_category": "1",
+            "id_credit_card": "1",
+            "type": 2,
+            "expense_type": 3,
+            "recurrency_end_date": "10/10/2023",
+            "number_of_stallments": 5
+        }
+    }
+
+
+GET {{URL_BASE}}/user/{{VALID_CPF}}
+
+GET {{URL_BASE}}/extract/{{VALID_ID_ACCOUNT OR VALID_ID_CREDIT_CARD}}
+    {
+        "type": 2, // ENUM ACCOUNT OR CREDIT_CARD
+        "initial_date": "2023-05-01",
+        "end_date": "2023-07-31", // OPTIONAL
+        "number_of_days": 30 // OPTIONAL
+    }
