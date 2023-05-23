@@ -1,7 +1,6 @@
 import styles from './home.module.css'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 
 
 import logo from '../img/logo.svg'
@@ -28,10 +27,11 @@ function Home(){
                             <h1 className={styles.h1}> A <b>Colmeia</b> que te ajuda a  </h1>
                             <h1 className={styles.h1}> controlar seu <strong>dinheiro</strong>  </h1>
                             
-                            <Button variant="contained">Cadastrar</Button>
+                            <br/>
+                            <button className={styles.botao_cadastrar} >Cadastrar</button>
                             &ensp;
                             &ensp;
-                            <Button variant="outlined">Login</Button>
+                            <button className={styles.botao_login}>Login</button>
 
                         </div>
                     </Grid>

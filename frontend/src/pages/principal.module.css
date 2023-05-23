@@ -4,7 +4,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 15%;
+    width: 10%;
 
 }
 
@@ -40,9 +40,19 @@
     width: 25%;
 }
 
-.botao_cadastrar{
+.div_buttons{
+
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.botao_receita_despesa{
     
-    width: 160px;
+    
+
+    width: 180px;
     height: 50px;
     border: none !important;
     background: #F7BC0A;
@@ -56,9 +66,9 @@
     line-height: 36px;
 }
 
-.botao_cadastrar:hover{
+.botao_receita_despesa:hover{
     
-    width: 160px;
+    width: 180px;
     height: 50px;
     border: none !important;
     background: #7A631D;
@@ -72,45 +82,5 @@
     line-height: 36px;
 }
 
-
-.botao_login{
-    
-    box-sizing: border-box;
-    width: 160px;
-    height: 50px;
-
-    background: #FFFFFF;
-    border-color: #7A631D;
-    border: 1px solid #7A631D;
-    border-radius: 20px;
-
-    color: #7A631D;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 36px;
-
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-}
-
-.botao_login:hover{
-    
-    box-sizing: border-box;
-    width: 160px;
-    height: 50px;
-
-    background: #7A631D;
-    border: none !important;
-    border: 1px solid #7A631D;
-    border-radius: 20px;
-
-    color: #FFFFFF;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 36px;
-
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-}
 
 
