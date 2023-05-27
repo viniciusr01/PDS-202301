@@ -1,0 +1,16 @@
+.create_account_line_checkbox,
+.create_account_title{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    color: #7A631D;
+}
+
+.create_account_title h1{
+    width: 100%;
+    text-align: center;
+    font-style: normal;
+    font-size: 25px;
+    font-weight: 600;
+}

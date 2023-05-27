@@ -1,0 +1,8 @@
+.insert_transaction_input_group{
+    grid-template-rows: 1fr;
+    gap: 5px;
+}
+
+.insert_transaction_select{
+    padding: 0px 20px;
+}
