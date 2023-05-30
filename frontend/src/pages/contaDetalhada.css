@@ -1,0 +1,72 @@
+.conta_detalhada_select{
+    padding: 0px 20px;
+    width: 180px;
+    height: 50px;
+    border: none !important;
+    border-radius: 20px;
+
+    background-color: #F7BC0A;
+    box-shadow: 0px 0px 0px #7A631D;
+    
+    color: #7A631D;
+    margin-top: 30px;
+
+    
+    font-style: normal;
+    font-size: 18px;
+    line-height: 36px;
+    font-weight: 600;
+}
+
+.conta_detalhada_container{
+    background-color: #FFFAED;
+    height: 100vh;
+}
+
+.conta_detalhada_fatura{
+    background-color: #FFFFFF;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 0px #7A631D;
+    
+}
+
+.conta_detalhada_bloco_principal{
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.conta_detalhada_linha h5, 
+.conta_detalhada_linha p{
+    text-align: center;
+}
+
+.conta_detalhada_linha {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.conta_detalhada_fatura_titulo button{
+    background: none;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conta_detalhada_fatura_titulo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    
+}
+
+.conta_detalhada_fatura_titulo h5{
+    text-align: center;
+    color: #7A631D;
+}
