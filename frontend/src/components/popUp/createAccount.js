@@ -26,7 +26,6 @@ function CreateAccount({ display, setDisplay }){
             fontePagamento,
             categoria
         }).then((res) => {
-            console.error(res);
             window.location.reload();
         }).catch((err) => {
             console.error(err);

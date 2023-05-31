@@ -4,6 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import InserTransaction from '../components/popUp/insertTransaction';
 import CreateAccount from '../components/popUp/createAccount';
+import CreateCategory from '../components/popUp/createCategory';
 
 import Header from '../components/header';
 import { PieChart, Pie, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts';
@@ -52,6 +53,7 @@ function Principal(){
 
     const [modalTransacao, setModalTransacao] = useState('none');
     const [modalConta, setModalConta] = useState('none');
+    const [modalCategory, setModalCategory] = useState('none');
     const [modalType, setModalType] = useState('despesa');
     let navigate = useNavigate(); 
 
@@ -60,6 +62,7 @@ function Principal(){
             <Header/>
             <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType}/>
             <CreateAccount display={ modalConta } setDisplay={setModalConta}/>
+            <CreateCategory display={ modalCategory } setDisplay={setModalCategory}/>
             <div className='grid principal_bloco_principal'>                
                 <div></div>
                 <div className='grid principal_bloco_principal_container'>
@@ -67,6 +70,7 @@ function Principal(){
                         <button className='botao_receita_despesa' onClick={criaModalReceita}>+Receita</button>
                         <button className='botao_receita_despesa' onClick={criaModalDespesa}>+Despesa</button>
                         <button className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+Conta</button>
+                        <button className='botao_receita_despesa' onClick={() => setModalCategory('inline')}>+Categoria</button>
                     </div>
                     <div className='grid principal_cards_menores'>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
