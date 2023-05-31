@@ -2,6 +2,7 @@ from flask import Flask
 from ..app.blueprints.TransactionBlueprint import transaction
 from ..app.blueprints.UserBlueprint import user
 from ..app.blueprints.ExtractBlueprint import extract
+from ..app.blueprints.ExpenseBlueprint import expense
 from ..app.blueprints.AuthBlueprint import auth
 
 def CreateApp():
@@ -10,6 +11,7 @@ def CreateApp():
     app.register_blueprint(transaction, url_prefix='/transaction')
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(extract, url_prefix='/extract')
+    app.register_blueprint(expense, url_prefix='/expense')
     app.register_blueprint(auth, url_prefix='/auth')
 
 
