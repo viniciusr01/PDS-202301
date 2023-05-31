@@ -3,6 +3,7 @@ import './principal.css'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import InserTransaction from '../components/popUp/insertTransaction';
+import CreateAccount from '../components/popUp/createAccount';
 
 import Header from '../components/header';
 import { PieChart, Pie, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts';
@@ -42,27 +43,30 @@ function Principal(){
 
     const criaModalDespesa = () => {
         setModalType('despesa');
-        setModal('inline')
+        setModalTransacao('inline')
     }
     const criaModalReceita = () => {
         setModalType('receita');
-        setModal('inline')
+        setModalTransacao('inline')
     }
 
-    const [modal, setModal] = useState('none');
+    const [modalTransacao, setModalTransacao] = useState('none');
+    const [modalConta, setModalConta] = useState('none');
     const [modalType, setModalType] = useState('despesa');
     let navigate = useNavigate(); 
 
     return (
         <div className='grid principal_container'>
             <Header/>
-            <InserTransaction display={ modal } setDisplay={setModal} type={modalType} setType={setModalType}/>
+            <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType}/>
+            <CreateAccount display={ modalConta } setDisplay={setModalConta}/>
             <div className='grid principal_bloco_principal'>                
                 <div></div>
                 <div className='grid principal_bloco_principal_container'>
                     <div className='flex principal_botoes'>
                         <button className='botao_receita_despesa' onClick={criaModalReceita}>+Receita</button>
                         <button className='botao_receita_despesa' onClick={criaModalDespesa}>+Despesa</button>
+                        <button className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+Conta</button>
                     </div>
                     <div className='grid principal_cards_menores'>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
