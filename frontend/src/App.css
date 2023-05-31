@@ -9,3 +9,11 @@ button:hover,
 select:hover{
     cursor: pointer;
 }
+
+.grid{
+    display: grid;
+}
+
+.flex{
+    display: flex;
+}

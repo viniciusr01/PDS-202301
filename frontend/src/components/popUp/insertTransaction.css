@@ -6,3 +6,21 @@
 .insert_transaction_select{
     padding: 0px 20px;
 }
+
+.block{
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 10;
+
+}
+
+.insert_transaction_center{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
