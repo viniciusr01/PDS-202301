@@ -1,5 +1,8 @@
 from flask import Blueprint, jsonify, url_for, redirect, request
 
+from src.domain.services.Authentication import Authentication
+from src.adapters.SqlAdapter import SqlAdapter
+
 import json
 from oauthlib.oauth2 import WebApplicationClient
 import requests
@@ -17,10 +20,8 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 @auth.route('/', methods = ['GET'])
 def Auth():
     try:
-
-
+        
         GOOGLE_CLIENT_ID = '890513067732-pag2evg2g4pa0aqhs2cj2sn5739hatme.apps.googleusercontent.com'
-        GOOGLE_CLIENT_SECRET = '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'
         GOOGLE_DISCOVERY_URL = (
             "https://accounts.google.com/.well-known/openid-configuration"
         )
@@ -38,7 +39,7 @@ def Auth():
             scope=["openid", "email", "profile"],
         )
 
-        return redirect(request_uri)
+        return request_uri
 
     except TypeError as e:
         return jsonify(str(e)), 400
@@ -80,7 +81,7 @@ def callback():
     )
 
     # Get Access Token
-    client.parse_request_body_response(json.dumps(token_response.json()))
+    getToken = client.parse_request_body_response(json.dumps(token_response.json()))
 
     # Get user information
     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
@@ -88,6 +89,14 @@ def callback():
     userinfo_response = requests.get(uri, headers=headers, data=body)
 
     print(userinfo_response.json())
-    
 
-    return 'ok'
+    cpf = userinfo_response.json()['sub']
+    name = userinfo_response.json()['name']
+    email = userinfo_response.json()['email']
+
+    if(getToken['access_token']):
+        user = Authentication(SqlAdapter()).make(cpf, name, email)
+        return redirect('http://localhost:3000/main')
+
+    else:
+        return redirect('http://localhost:3000', code=401)

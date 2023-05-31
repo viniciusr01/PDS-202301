@@ -2,3 +2,4 @@ Flask==2.2.3
 python_dateutil==2.8.2
 oauthlib==3.0.1
 requests==2.21.0
+Flask-Cors==3.0.10

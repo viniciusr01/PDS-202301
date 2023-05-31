@@ -1,15 +1,24 @@
-import styles from './home.module.css'
+import styles from './home.module.css';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
+import axios from 'axios';
 
 import logo from '../img/logo.svg'
 import simbolo from '../img/Simbolo.svg'
+
+import React, { useState, useEffect } from "react";
+
+
 
 
 function Home(){
 
 
+
+    function getLogin() {
+        axios.get('http://localhost:8000/auth')
+        .then(url => window.location.href = url.data)       
+    }
 
     return (
         
@@ -31,7 +40,7 @@ function Home(){
                             <button className={styles.botao_cadastrar} >Cadastrar</button>
                             &ensp;
                             &ensp;
-                            <button className={styles.botao_login}>Login</button>
+                            <button className={styles.botao_login}  onClick={getLogin}>Login</button>
 
                         </div>
                     </Grid>

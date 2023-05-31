@@ -251,6 +251,22 @@ class SqlAdapter(ISql):
             ))
 
         return res
+    
+
+    #TO DO: Vinicius
+    def CreateUser(self, cpf, name, email) -> None:
+        
+        SQL_QUERY = f'''
+            INSERT INTO user ("cpf", "name", "email")
+            VALUES(
+                '{cpf}',
+                '{name}',
+                '{email}'
+            )
+        '''
+        
+        res = self.__execute__(SQL_QUERY)
+        print(res)
 
     def __GetBillByDate__(self, credit_card_id: int, date: date):
         GET_CURRENT_BILL = f'''
