@@ -2,6 +2,7 @@ import "./header.css"
 
 import logo from '../img/logo.svg'
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 function Header(){
@@ -10,7 +11,17 @@ function Header(){
     return(
     <div>
         <div className="header_container">
-            <img onClick={() => navigate("/main")} className="header_logo" src={logo}></img>
+            <div></div>
+            <div className="grid header_bloco_main">
+                <div></div>
+                <div className="flex header_logo_div">
+                    <img onClick={() => navigate("/main")} className="header_logo" src={logo}></img>
+                </div>
+                <div className="flex header_logout">
+                    <LogoutIcon/>
+                </div>
+            </div>
+            <div></div>
         </div>
     </div>
     )
