@@ -1,17 +1,22 @@
 from datetime import date
 
 from src.domain.entities.Income import Income
+from src.domain.entities.BankAccount import BankAccount
 from ..gates.ISql import ISql
 
 class RetrieveIncomesInAPeriod():
     def __init__(self, db: ISql) -> None:
         self.db = db
 
-    def make(self, account_id: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
+    def make(self, user_id: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
         incomes = []
+        accounts = []
 
-        incomes = self.db.RetrieveIncomesFromAccount(id_account = account_id, 
-                                                            initial_date = initial_date, 
-                                                            end_date = end_date)
-        
+        accounts = self.db.RetrieveAccountsFromUser(user_cpf=user_id)
+
+        for account in accounts:
+            incomes = incomes + self.db.RetrieveIncomesFromAccount(id_account = account.id,
+                                                                   initial_date = initial_date,
+                                                                   end_date = end_date)
+                                                            
         return incomes

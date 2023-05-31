@@ -7,8 +7,8 @@ from src.utils.ValidObject import ValidObject
 
 income = Blueprint('income', __name__,)
 
-@income.route('/<account_id>', methods = ['GET'])
-def RetrieveIncomes(account_id: int):
+@income.route('/<user_id>', methods = ['GET'])
+def RetrieveIncomes(user_id: int):
     try:
         if request.headers['Content-Type'] != 'application/json':
             current_app.logger.debug(request.headers['Content-Type'])
@@ -24,7 +24,7 @@ def RetrieveIncomes(account_id: int):
         initial_date = datetime.strptime(data["initial_date"], '%Y-%m-%d')
         end_date = datetime.strptime(data["end_date"], '%Y-%m-%d') if "end_date" in data.keys() else date.today()
 
-        income = RetrieveIncomesInAPeriod(SqlAdapter()).make(account_id=str(account_id),
+        income = RetrieveIncomesInAPeriod(SqlAdapter()).make(user_id=str(user_id),
                                                                initial_date=initial_date,
                                                                end_date = end_date)
 
