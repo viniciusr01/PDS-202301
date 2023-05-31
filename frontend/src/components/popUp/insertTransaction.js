@@ -11,6 +11,42 @@ function InsertTransaction({ display, setDisplay, type, setType }){
     const [fontePagamento, setFontePagamento] = useState("")
     const [categoria, setCategoria] = useState("")
 
+    const fontesDePagamento = [
+        {
+            "name": "Santander",
+            "id": "1",
+            "color": "#FFFFFF"
+        },
+        {
+            "name": "Nubank",
+            "id": "2",
+            "color": "#FFFFFF"
+        },
+        {
+            "name": "Cartao Nu",
+            "id": "3",
+            "color": "#FFFFFF"
+        }
+    ]
+
+    const categorias = [
+        {
+            "name": "Lazer",
+            "id": "1",
+            "color": "#FFFFFF"
+        },
+        {
+            "name": "Saúde",
+            "id": "2",
+            "color": "#FFFFFF"
+        },
+        {
+            "name": "Compras",
+            "id": "3",
+            "color": "#FFFFFF"
+        }
+    ]
+
     const criaTransacao = ({
         valor,
         data,
@@ -51,13 +87,27 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                             onChange={(e)=>{setData(e.target.value)}}/>
                         <input className="pop_up_input" placeholder="Descrição"
                             onChange={(e)=>{setDescricao(e.target.value)}}/>
-                        <div className="grid pop_up_input_group_line
-
-        ">
-                            <input className="pop_up_input" placeholder="Fonte de Pagamento"
-                                onChange={(e)=>{setFontePagamento(e.target.value)}}/>
-                            <input className="pop_up_input" placeholder="Categoria"
-                                onChange={(e)=>{setCategoria(e.target.value)}}/>
+                        <div className="grid pop_up_input_group_line">
+                            <select className="pop_up_input" placeholder="Fonte de Pagamento"
+                                onChange={(e)=>{setFontePagamento(e.target.value)}}>
+                                    {fontesDePagamento.map( e => {
+                                        return(
+                                            <option value={e.id}>{e.name}</option>
+                                        )
+                                     
+                                    })}
+                            
+                            </select>
+                            <select className="pop_up_input" placeholder="Categoria"
+                                onChange={(e)=>{setCategoria(e.target.value)}}>
+                                    {categorias.map( e => {
+                                        return(
+                                            <option value={e.id}>{e.name}</option>
+                                        )
+                                    
+                                    })}
+                            
+                            </select>
                         </div>
                     </div>
                     <div className="pop_up_button_group">
