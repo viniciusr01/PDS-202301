@@ -8,10 +8,21 @@ user = Blueprint('user', __name__,)
 @user.route('/<user_id>', methods = ['GET'])
 def RetrieveUserAccount(user_id: int):
     try:
-        accounts = RetrieveUserAccounts(SqlAdapter()).make(user_id)
-        res = RetrieveUserAccountDTO().make(accounts)
 
-        return jsonify(res)
+        user = SqlAdapter().GetUser(user_id)
+
+        res = {'User': {
+            'name':user[0][2],
+            'email':user[0][1]
+            }
+        }
+
+        accounts = RetrieveUserAccounts(SqlAdapter()).make(user_id)
+        accounts = RetrieveUserAccountDTO().make(accounts)
+
+        res.update(accounts)
+
+        return res
 
     except TypeError as e:
         return jsonify(str(e)), 400

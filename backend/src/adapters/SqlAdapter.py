@@ -275,7 +275,7 @@ class SqlAdapter(ISql):
             ))
 
         return res
-    
+        
     def RetrieveCategoriesFromUser(self, user_cpf: int) -> list[Category]:
         SQL_QUERY = f'''
             SELECT name, description, color, cpf_user
@@ -298,6 +298,34 @@ class SqlAdapter(ISql):
             res.append(aux)
 
         return res
+
+
+    #TO DO: Vinicius
+    def CreateUser(self, cpf, name, email) -> None:
+        
+        SQL_QUERY = f'''
+            INSERT INTO user ("cpf", "name", "email")
+            VALUES(
+                '{cpf}',
+                '{name}',
+                '{email}'
+            )
+        '''
+        
+        res = self.__execute__(SQL_QUERY)
+        print(res)
+    
+
+    def GetUser(self, cpf) -> None:
+        
+        SQL_QUERY = f'''
+            SELECT *
+            FROM user as u
+            WHERE u.cpf = '{cpf}'
+        '''
+        user = self.__execute__(SQL_QUERY)
+        return user
+        
 
     def __GetBillByDate__(self, credit_card_id: int, date: date):
         GET_CURRENT_BILL = f'''

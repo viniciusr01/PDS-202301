@@ -5,12 +5,6 @@ import api from "../../services/api"
 
 
 function InsertTransaction({ display, setDisplay, type, setType }){
-    const [valor, setValor] = useState("");
-    const [data, setData] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [fontePagamento, setFontePagamento] = useState("")
-    const [categoria, setCategoria] = useState("")
-
     const fontesDePagamento = [
         {
             "name": "Santander",
@@ -46,23 +40,47 @@ function InsertTransaction({ display, setDisplay, type, setType }){
             "color": "#FFFFFF"
         }
     ]
+    const [valor, setValor] = useState("");
+    const [data, setData] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0].id)
+    const [categoria, setCategoria] = useState(categorias[0].id)
 
-    const criaTransacao = ({
-        valor,
-        data,
-        descricao,
-        fontePagamento,
-        categoria
-    }) => {
-        api.post('/transaction', {
-            user_id: JSON.parse(localStorage.user).user_id,
-            valor,
-            data,
-            descricao,
-            fontePagamento,
-            categoria
-        }).then((res) => {
-            console.error(res);
+    // const user = JSON.parse(localStorage.user)
+    const user = {"user_id": "15899451742"}
+
+    const criaTransacao = () => {
+        console.log(
+            {
+                "user":{
+                    "cpf": user.user_id
+                },
+                "transaction": {
+                    "description": descricao,
+                    "value": valor,
+                    "reference_date": data,
+                    "id_account": fontePagamento,
+                    "id_category": categoria,
+                    "type":  type == 'despesa' ? 2 : 1,
+                    "expense_type": 1
+            }}
+        )
+
+
+        api.post('/transaction/', {
+            "user":{
+                "cpf": user.user_id
+            },
+            "transaction": {
+                "description": descricao,
+                "value": valor,
+                "reference_date": data,
+                "id_account": fontePagamento,
+                "id_category": categoria,
+                "type":  type == 'despesa' ? 2 : 1,
+                "expense_type": 1
+            }}).then((res) => {
+                console.log(res)
             window.location.reload();
         }).catch((err) => {
             console.error(err);
@@ -81,8 +99,12 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                     </select>
 
                     <div className="grid insert_transaction_input_group">
-                        <input className="pop_up_input" placeholder="R$0.00" 
-                            onChange={(e)=>{setValor(e.target.value)}}/>
+                        <input type="text" className="pop_up_input" placeholder="R$0.00" 
+                            onChange={(e)=>{
+                                setValor(e.target.value)
+                                console.log(valor)
+                                
+                                }}/>
                         <input className="pop_up_input" placeholder="Data"
                             onChange={(e)=>{setData(e.target.value)}}/>
                         <input className="pop_up_input" placeholder="Descrição"
@@ -112,13 +134,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                     </div>
                     <div className="pop_up_button_group">
                         <button className="botao_voltar" onClick={() => setDisplay('none')}>Voltar</button>
-                        <button className="botao_confirmar" onClick={()=>criaTransacao(
-                            valor,
-                            data,
-                            descricao,
-                            fontePagamento,
-                            categoria
-                        )}>Criar</button>
+                        <button className="botao_confirmar" onClick={() => criaTransacao()}>Criar</button>
                     </div>
 
                 </div>

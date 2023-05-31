@@ -22,6 +22,25 @@ const meses = [
     'DEZEMBRO'
 ];
 
+const transacoes = ()=>{
+    return api.get('/transaction/', {
+        "user":{
+            "cpf": user.user_id
+        },
+        "transaction": {
+            "description": descricao,
+            "value": valor,
+            "reference_date": data,
+            "id_account": fontePagamento,
+            "id_category": categoria,
+            "type":  type == 'despesa' ? 2 : 1,
+            "expense_type": 1
+        }}).then((res) => {
+            return res;
+    }).catch((err) => {
+        console.error(err);
+    })
+} 
 
 function ContaDetalhada(){
     const date = new Date();

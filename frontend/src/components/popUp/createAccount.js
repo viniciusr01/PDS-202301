@@ -25,12 +25,17 @@ function CreateAccount({ display, setDisplay }){
         categoria
     }) => {
         api.post('/transaction', {
-            user_id: JSON.parse(localStorage.user).user_id,
-            valor,
-            data,
-            descricao,
-            fontePagamento,
-            categoria
+            "user":{
+                "cpf": JSON.parse(localStorage.user).user_id
+            },
+            "transaction": {
+                "description": descricao,
+                "value": valor,
+                "reference_date": data,
+                "id_category": categoria,
+                "type": ""
+            }
+
         }).then((res) => {
             window.location.reload();
         }).catch((err) => {
