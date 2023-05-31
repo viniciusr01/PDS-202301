@@ -11,6 +11,12 @@ function CreateAccount({ display, setDisplay }){
     const [descricao, setDescricao] = useState("");
     const [fontePagamento, setFontePagamento] = useState("")
     const [categoria, setCategoria] = useState("")
+    const [check, setCheck] = useState(false)
+
+    const handleCheck = () => {
+        check ? setCheck(false) : setCheck(true);
+    }
+
     const criaConta = ({
         valor,
         data,
@@ -39,15 +45,13 @@ function CreateAccount({ display, setDisplay }){
                     <div className="create_account_title"><h1>Criar Conta</h1></div>
                     <div className="grid create_account_input_group">
                         <input className="pop_up_input" placeholder="Nome"></input>
-                        <div className="grid pop_up_input_group_line
-
-        ">
+                        <div className="grid pop_up_input_group_line">
                             <input className="pop_up_input" placeholder="Descrição Opcional"></input>
                             <input className="pop_up_input" placeholder="Cor"></input>
                         </div>
                         <div className="create_account_line_checkbox">
-                            É cartão de crédito?
-                            <CheckBox/>
+                            <p>É cartão de crédito?</p>
+                            <input type="checkbox" checked={check} onChange = {handleCheck} color="#7A631D"/>
                         </div>
                         <input className="pop_up_input" placeholder="Saldo Inicial"></input>
                     </div>
