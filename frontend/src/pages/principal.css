@@ -104,3 +104,11 @@
 .principal_card_extendido_infos_texto_linha{
     justify-content: space-between;
 }
+
+.principal_card_menor:hover{
+    cursor: pointer;
+}
+
+.principal_card_maior_detalhes p:hover{
+    cursor: pointer;
+}
