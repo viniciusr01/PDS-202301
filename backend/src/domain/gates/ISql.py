@@ -16,6 +16,10 @@ class ISql:
         pass
 
     @abstractmethod
+    def GetUser(self, cpf) -> None:
+        pass
+
+    @abstractmethod
     def AddIncome(self, income: dict) -> None:
         pass
     

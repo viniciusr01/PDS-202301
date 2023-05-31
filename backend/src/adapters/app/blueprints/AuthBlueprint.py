@@ -95,8 +95,9 @@ def callback():
     email = userinfo_response.json()['email']
 
     if(getToken['access_token']):
-        user = Authentication(SqlAdapter()).make(cpf, name, email)
-        return redirect('http://localhost:3000/main')
+        Authentication(SqlAdapter()).make(cpf, name, email)  
+        url = "http://localhost:3000/main?cpf={}".format(cpf)
+        return redirect(url)
 
     else:
         return redirect('http://localhost:3000', code=401)

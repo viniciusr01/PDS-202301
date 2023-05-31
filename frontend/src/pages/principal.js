@@ -1,4 +1,6 @@
 import './principal.css'
+import axios from 'axios';
+
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -8,11 +10,28 @@ import CreateCategory from '../components/popUp/createCategory';
 
 import Header from '../components/header';
 import { PieChart, Pie, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
 function Principal(){
+
+    const queryParameters = new URLSearchParams(window.location.search)
+    
+    if(queryParameters.get("cpf")){
+        const cpf = queryParameters.get("cpf")
+        localStorage.setItem("cpf",cpf)
+
+        axios.get(`http://localhost:8000/user/${cpf}`)
+        .then(info => {
+                localStorage.setItem("name",info.data.User.name)
+                localStorage.setItem("email",info.data.User.email)
+                localStorage.setItem("accounts",info.data.Accounts)
+            }
+        )      
+    }
+    
+
     const data = [
         {
             'Receita': 2000,

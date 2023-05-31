@@ -37,10 +37,12 @@ function Home(){
                             <h1 className={styles.h1}> controlar seu <strong>dinheiro</strong>  </h1>
                             
                             <br/>
-                            <button className={styles.botao_cadastrar} >Cadastrar</button>
+                            {/*
+                            <button className={styles.botao_cadastrar} >Cadastrar</button> **!
                             &ensp;
                             &ensp;
-                            <button className={styles.botao_login}  onClick={getLogin}>Login</button>
+                            */}
+                            <button className={styles.botao_cadastrar}  onClick={getLogin}>Login</button>
 
                         </div>
                     </Grid>

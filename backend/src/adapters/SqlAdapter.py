@@ -267,6 +267,18 @@ class SqlAdapter(ISql):
         
         res = self.__execute__(SQL_QUERY)
         print(res)
+    
+
+    def GetUser(self, cpf) -> None:
+        
+        SQL_QUERY = f'''
+            SELECT *
+            FROM user as u
+            WHERE u.cpf = '{cpf}'
+        '''
+        user = self.__execute__(SQL_QUERY)
+        return user
+        
 
     def __GetBillByDate__(self, credit_card_id: int, date: date):
         GET_CURRENT_BILL = f'''
