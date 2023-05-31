@@ -1,9 +1,5 @@
 import './principal.css'
 
-import logo from '../img/logo.svg'
-import LogoutIcon from '@mui/icons-material/Logout';
-import simbolo from '../img/Simbolo.svg'
-
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import InserTransaction from '../components/popUp/insertTransaction';
@@ -11,6 +7,8 @@ import InserTransaction from '../components/popUp/insertTransaction';
 import Header from '../components/header';
 import { PieChart, Pie, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 function Principal(){
     const data = [
@@ -53,6 +51,7 @@ function Principal(){
 
     const [modal, setModal] = useState('none');
     const [modalType, setModalType] = useState('despesa');
+    let navigate = useNavigate(); 
 
     return (
         <div className='grid principal_container'>
@@ -66,19 +65,19 @@ function Principal(){
                         <button className='botao_receita_despesa' onClick={criaModalDespesa}>+Despesa</button>
                     </div>
                     <div className='grid principal_cards_menores'>
-                        <div className='flex shadow principal_card_menor'>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Saldo Atual <ArrowForwardIosIcon/> </h5>
                             <p>{user_accounts.saldo}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor'>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Receitas <ArrowForwardIosIcon/> </h5>
                             <p>{user_accounts.receitas}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor'>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Despesas <ArrowForwardIosIcon/> </h5>
                             <p>{user_accounts.despesas}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor'>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Balanço <ArrowForwardIosIcon/> </h5>
                             <p>{user_accounts.balanco}</p>
                         </div>
@@ -92,7 +91,7 @@ function Principal(){
                                         <PieChart width={300} height={250}>
                                             <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
-                                        <p>VER MAIS</p>
+                                        <p  onClick={() => navigate("/account")}>VER MAIS</p>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +102,7 @@ function Principal(){
                                         <PieChart width={300} height={250}>
                                             <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
-                                        <p>VER MAIS</p>
+                                        <p  onClick={() => navigate("/account")}>VER MAIS</p>
                                     </div>
                                 </div>
                             </div>
