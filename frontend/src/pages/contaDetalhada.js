@@ -22,118 +22,46 @@ const meses = [
     'DEZEMBRO'
 ];
 
-const transacoes = ()=>{
-    return api.get('/transaction/', {
-        "user":{
-            "cpf": user.user_id
-        },
-        "transaction": {
-            "description": descricao,
-            "value": valor,
-            "reference_date": data,
-            "id_account": fontePagamento,
-            "id_category": categoria,
-            "type":  type == 'despesa' ? 2 : 1,
-            "expense_type": 1
-        }}).then((res) => {
-            return res;
-    }).catch((err) => {
-        console.error(err);
-    })
-} 
-
 function ContaDetalhada(){
     const date = new Date();
+    const user = {'user_id': "15899451742"}
 
     const [select, setSelect] = useState();
     const [mes, setMes] = useState(date.getMonth() + 1);
-    const [despesas, setDespesa] = useState([
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        }
-    ])
+    const [despesas, setDespesa] = useState([])
 
-    const [receitas, setReceita] = useState([
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        }
-    ])
+    const [receitas, setReceita] = useState([])
+
+
+    const incomes = () => {
+        return api.post('/income/'+ user.user_id, {
+            'initial_date': '2023-'+ (mes) + '-01',
+            'end_date': '2023-'+ (mes+1) + '-01'
+        
+        }).then((res) => {
+                setReceita(res.data.Incomes);
+        }).catch((err) => {
+            console.error(err);
+        })
+    }
+
+    const expenses = () => {
+        return api.post('/expense/' + user.user_id, {
+            'initial_date': '2023-'+ (mes) + '-01',
+            'end_date': '2023-'+ (mes+1) + '-01'
+        
+        }).then((res) => {
+                setDespesa(res.data.Expenses);
+        }).catch((err) => {
+            console.error(err);
+        })
+    } 
 
     useEffect(() => {
-        // TODO: Conferir a rota e requisição
-        api
-          .get("/extract")
-          .then((response) =>{
-            setDespesa(response.data.despesas)
-            setReceita(response.data.receitas)
-            })
-          .catch((err) => {
-            console.error("ops! ocorreu um erro" + err);
-          });
+        
+        expenses();
+        incomes();
+        console.log(receitas)
       }, [mes]);
 
     function handleMesAnterior(){
