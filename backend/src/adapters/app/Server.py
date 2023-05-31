@@ -4,6 +4,7 @@ from ..app.blueprints.UserBlueprint import user
 from ..app.blueprints.ExtractBlueprint import extract
 from ..app.blueprints.IncomeBlueprint import income
 from ..app.blueprints.ExpenseBlueprint import expense
+from ..app.blueprints.CategoryBlueprint import category
 from ..app.blueprints.AuthBlueprint import auth
 
 def CreateApp():
@@ -14,6 +15,7 @@ def CreateApp():
     app.register_blueprint(extract, url_prefix='/extract')
     app.register_blueprint(income, url_prefix='/income')
     app.register_blueprint(expense, url_prefix='/expense')
+    app.register_blueprint(category, url_prefix='/category')
     app.register_blueprint(auth, url_prefix='/auth')
 
 

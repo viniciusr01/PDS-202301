@@ -89,6 +89,29 @@ class SqlAdapter(ISql):
         
         res = self.__execute__(SQL_QUERY)
         print(res)
+    
+    def AddCategory(self, category: dict):
+        if not ValidObject().make(category, [
+            "name",
+            "description", 
+            "user_cpf"
+        ]):
+            raise Exception('''Some key is missing. The following keys are expected: 
+                name, description, user_cpf''')
+        
+        SQL_QUERY = f'''
+            INSERT INTO category ("name", "description", "color", "cpf_user")
+            VALUES(
+                '{category['name']}',
+                '{category['description']}',
+                '{category['color']}',
+                '{category['user_cpf']}'
+            )
+        '''
+
+        res = self.__execute__(SQL_QUERY)
+        print(res)
+        
 
     def RetrieveIncomesFromAccount(self, id_account: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
         SQL_QUERY = f'''

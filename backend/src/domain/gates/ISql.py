@@ -17,6 +17,10 @@ class ISql:
         pass
 
     @abstractmethod
+    def AddCategory(self, category: dict) -> None:
+        pass
+
+    @abstractmethod
     def RetrieveSumIncomeFromAccount(self, id_account: str, date: date = date.today()) -> float:
         pass
 
