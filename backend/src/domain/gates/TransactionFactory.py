@@ -6,7 +6,6 @@ from src.domain.entities.Income import Income
 from src.domain.entities.Transaction import Transaction   
 
 
-# TODO: Verificar se essa classe pode estar com implementação mesmo
 class TransactionFactory:
     def __init__(self) -> None:
         pass

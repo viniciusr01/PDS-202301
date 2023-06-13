@@ -1,4 +1,5 @@
 from flask import Blueprint, current_app, jsonify, request
+from flask_cors import cross_origin
 from src.domain.services.MakeTransaction import MakeTransaction
 from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.TransactionFactory import TransactionFactory
@@ -8,6 +9,7 @@ from src.domain.gates.TransactionFactory import TransactionFactory
 transaction = Blueprint('transaction', __name__,)
 
 @transaction.route('/', methods = ['POST'])
+@cross_origin()
 def CreateTransaction():
     try:
         if request.headers['Content-Type'] != 'application/json':

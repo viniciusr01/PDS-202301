@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from flask import Blueprint, current_app, jsonify, request
+from flask_cors import cross_origin
 from src.domain.services.RetrieveIncomesInAPeriod import RetrieveIncomesInAPeriod
 from src.domain.gates.dto.RetrieveIncomesDTO import RetrieveIncomesDTO
 from src.adapters.SqlAdapter import SqlAdapter
@@ -7,7 +8,8 @@ from src.utils.ValidObject import ValidObject
 
 income = Blueprint('income', __name__,)
 
-@income.route('/<user_id>', methods = ['GET'])
+@income.route('/<user_id>', methods = ['POST'])
+@cross_origin()
 def RetrieveIncomes(user_id: int):
     try:
         if request.headers['Content-Type'] != 'application/json':
