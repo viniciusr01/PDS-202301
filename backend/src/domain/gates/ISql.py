@@ -4,9 +4,20 @@ from src.domain.entities.Income import Income
 from src.domain.entities.Expense import Expense
 from src.domain.entities.BankAccount import BankAccount
 from src.domain.entities.CreditCard import CreditCard
+from src.domain.entities.User import User
+
 
 class ISql:
     __metaclass__ = ABCMeta
+
+
+    @abstractmethod
+    def CreateUser(self, cpf, name, email) -> None:
+        pass
+
+    @abstractmethod
+    def GetUser(self, cpf) -> None:
+        pass
 
     @abstractmethod
     def AddIncome(self, income: dict) -> None:

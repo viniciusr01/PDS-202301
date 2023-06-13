@@ -1,0 +1,114 @@
+.principal_bloco_principal{
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.botao_receita_despesa{
+    width: 180px;
+    height: 50px;
+    border: none !important;
+    background: #F7BC0A;
+    box-shadow: 0px 0px 0px #7A631D;
+    border-radius: 20px;
+
+    color: #7A631D;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 36px;
+}
+
+.botao_receita_despesa:hover{
+    
+    width: 180px;
+    height: 50px;
+    border: none !important;
+    background: #7A631D;
+    box-shadow: 0px 4px 4px #7A631D;
+    border-radius: 20px;
+
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 36px;
+}
+
+.principal_botoes{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.principal_cards_menores{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.principal_container h5 {
+    color: #7A631D;
+    position: relative;
+}
+
+.principal_container{
+    background-color: #FFFAED;
+}
+.principal_bloco_principal_container{
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.principal_card_menor{
+    height: 90px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    
+}
+
+.shadow {
+    padding: 5px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px #7A631D;
+    background-color: white;
+}
+
+
+.principal_card_menor h5,
+.principal_card_menor p{
+    margin: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.principal_cards_maiores{
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.principal_card_maior_detalhes{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.principal_card_extendido_infos{
+    padding: 30px;
+    grid-template-columns: 1fr 4fr;
+    gap: 10px;
+}
+
+.principal_card_extendido_infos_texto_linha{
+    justify-content: space-between;
+}
+
+.principal_card_menor:hover{
+    cursor: pointer;
+}
+
+.principal_card_maior_detalhes p:hover{
+    cursor: pointer;
+}
