@@ -28,41 +28,114 @@ function ContaDetalhada(){
 
     const [select, setSelect] = useState();
     const [mes, setMes] = useState(date.getMonth() + 1);
-    const [despesas, setDespesa] = useState([])
+    const [despesas, setDespesa] = useState([
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Cartão de Crédito Nu',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Cartão de Crédito Nu',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Cartão de Crédito Nu',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Cartão de Crédito Nu',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Cartão de Crédito Nu',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        }
+    ])
 
-    const [receitas, setReceita] = useState([])
+    const [receitas, setReceita] = useState([
+
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Santander',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Santander',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Santander',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Santander',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        },
+        {
+            'Data': "18/12/2023",
+            'Descrição': "Descrição válida",
+            'Conta': 'Santander',
+            'Categoria': 'Lazer',
+            'Valor': 'R$180,00'
+        }
+    ])
 
 
-    const incomes = () => {
-        return api.post('/income/'+ user.user_id, {
-            'initial_date': '2023-'+ (mes) + '-01',
-            'end_date': '2023-'+ (mes+1) + '-01'
+    // const incomes = () => {
+    //     return api.post('/income/'+ user.user_id, {
+    //         'initial_date': '2023-'+ (mes) + '-01',
+    //         'end_date': '2023-'+ (mes+1) + '-01'
         
-        }).then((res) => {
-                setReceita(res.data.Incomes);
-        }).catch((err) => {
-            console.error(err);
-        })
-    }
+    //     }).then((res) => {
+    //             setReceita(res.data.Incomes);
+    //     }).catch((err) => {
+    //         console.error(err);
+    //     })
+    // }
 
-    const expenses = () => {
-        return api.post('/expense/' + user.user_id, {
-            'initial_date': '2023-'+ (mes) + '-01',
-            'end_date': '2023-'+ (mes+1) + '-01'
+    // const expenses = () => {
+    //     return api.post('/expense/' + user.user_id, {
+    //         'initial_date': '2023-'+ (mes) + '-01',
+    //         'end_date': '2023-'+ (mes+1) + '-01'
         
-        }).then((res) => {
-                setDespesa(res.data.Expenses);
-        }).catch((err) => {
-            console.error(err);
-        })
-    } 
+    //     }).then((res) => {
+    //             setDespesa(res.data.Expenses);
+    //     }).catch((err) => {
+    //         console.error(err);
+    //     })
+    // } 
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        expenses();
-        incomes();
-        console.log(receitas)
-      }, [mes]);
+    //     expenses();
+    //     incomes();
+    //     console.log(receitas)
+    //   }, [mes]);
 
     function handleMesAnterior(){
         if (mes == 0)
