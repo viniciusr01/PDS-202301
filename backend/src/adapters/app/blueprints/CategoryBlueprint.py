@@ -1,4 +1,5 @@
 from flask import Blueprint, current_app, jsonify, request
+from flask_cors import cross_origin
 from src.domain.services.MakeCategory import MakeCategory
 from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.CategoryFactory import CategoryFactory
@@ -9,6 +10,7 @@ from src.domain.gates.dto.RetrieveCategoriesDTO import RetrieveCategoriesDTO
 category = Blueprint('category', __name__,)
 
 @category.route('/', methods = ['POST'])
+@cross_origin()
 def AddCategory():
     try:
         if request.headers['Content-Type'] != 'application/json':

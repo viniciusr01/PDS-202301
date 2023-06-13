@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from flask import Blueprint, current_app, jsonify, request
+from flask_cors import cross_origin
 from src.domain.gates.dto.RetrieveExtractDTO import RetrieveExtractDTO
 from src.domain.services.RetrieveExtractInAPeriod import RetrieveExtractInAPeriod
 from src.adapters.SqlAdapter import SqlAdapter
@@ -8,6 +9,7 @@ from src.utils.ValidObject import ValidObject
 extract = Blueprint('extract', __name__,)
 
 @extract.route('/<account_id>', methods = ['GET'])
+@cross_origin()
 def RetrieveUserAccount(account_id: int):
     try:
         if request.headers['Content-Type'] != 'application/json':
