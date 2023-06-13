@@ -8,7 +8,8 @@ from src.utils.ValidObject import ValidObject
 
 expense = Blueprint('expense', __name__,)
 
-@expense.route('/<user_id>', methods = ['POST'])
+
+@expense.route('/<user_id>', methods = ['GET'])
 @cross_origin()
 def RetrieveExpenses(user_id: int):
     try:

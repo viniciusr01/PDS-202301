@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from datetime import date
 from src.domain.entities.Income import Income
 from src.domain.entities.Expense import Expense
+from src.domain.entities.Category import Category
 from src.domain.entities.BankAccount import BankAccount
 from src.domain.entities.CreditCard import CreditCard
 from src.domain.entities.User import User
@@ -57,5 +58,9 @@ class ISql:
 
     @abstractmethod
     def RetrieveIdBillCreditCard(self, credit_card_id: int, date: date) -> int:
+        pass
+
+    @abstractmethod
+    def RetrieveCategoriesFromUser(self, user_cpf: int) -> list[Category]:
         pass
     

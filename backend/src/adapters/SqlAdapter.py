@@ -1,5 +1,6 @@
 from src.domain.entities.BankAccount import BankAccount
 from src.domain.entities.Bill import Bill
+from src.domain.entities.Category import Category
 from src.domain.entities.CreditCard import CreditCard
 from src.domain.gates.ISql import ISql
 from ..utils.ValidObject import ValidObject
@@ -274,7 +275,30 @@ class SqlAdapter(ISql):
             ))
 
         return res
-    
+        
+    def RetrieveCategoriesFromUser(self, user_cpf: int) -> list[Category]:
+        SQL_QUERY = f'''
+            SELECT name, description, color, cpf_user
+            FROM category c
+            WHERE c.cpf_user = '{user_cpf}'
+        '''
+
+        categories = self.__execute__(SQL_QUERY)
+        print(categories)
+
+        res = []
+
+        for name, description, color, user_cpf in categories:
+            aux = Category(
+                name, 
+                description,
+                user_cpf,
+                color
+            )
+            res.append(aux)
+
+        return res
+
 
     #TO DO: Vinicius
     def CreateUser(self, cpf, name, email) -> None:
