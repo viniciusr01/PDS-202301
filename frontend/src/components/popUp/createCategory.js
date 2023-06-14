@@ -2,8 +2,6 @@ import "./insertTransaction.css";
 import "./globalPopUp.css";
 import "./createAccount.css"
 import { useState, useEffect } from "react";
-import api from "../../services/api"
-import axios from 'axios';
 
 
 function CreateCategory({ display, setDisplay }){
@@ -11,36 +9,32 @@ function CreateCategory({ display, setDisplay }){
     const [descricao, setDescricao] = useState("");
     const [cor, setCor] = useState("");
 
-    //const user = {'user_id': '15899451742'}
 
     const user = JSON.parse(localStorage.getItem('cpf'));
 
-    // const criaCategoria = ({
-    //     nome,
-    //     descricao,
-    //     cor
-    // }) => {
-    //     api.post('/category', {
-    //         user_id: user.user_id,
-    //         descricao,
-    //         nome,
-    //         cor
-    //     }).then((res) => {
-    //         window.location.reload();
-    //     }).catch((err) => {
-    //         console.error(err);
-    //     })
-    // }
-
     function criaCategoria(nome, descricao, cor){
 
-       console.log(nome, descricao, cor)
 
-       axios.post('http://localhost:8000/category',{
-            name: nome,
-            user_cpf: user,
-            description: descricao, 
-            color: cor
+       const dataToSend = {
+            "category":
+            {
+                "name": nome,
+                "user_cpf": user,
+                "description": descricao, 
+                "color": cor
+            }
+       }
+
+       fetch('http://localhost:8000/category/',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+       })
+       .then( res =>  window.location.reload())
+       .catch((err) => {
+            console.error(err);
        })
     }
 
@@ -56,7 +50,7 @@ function CreateCategory({ display, setDisplay }){
                     </div>
                     <div className="pop_up_button_group">
                         <button className="botao_voltar" onClick={() => setDisplay('none')}>Voltar</button>
-                        <button className="botao_confirmar" onClick={() => criaCategoria({nome, descricao, cor})}>Criar</button>
+                        <button className="botao_confirmar" onClick={() => criaCategoria(nome, descricao, cor)}>Criar</button>
                     </div>
 
                 </div>

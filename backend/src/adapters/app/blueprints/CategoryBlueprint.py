@@ -10,7 +10,6 @@ from src.domain.gates.dto.RetrieveCategoriesDTO import RetrieveCategoriesDTO
 category = Blueprint('category', __name__,)
 
 @category.route('/', methods = ['POST'])
-@cross_origin()
 def AddCategory():
     try:
         if request.headers['Content-Type'] != 'application/json':

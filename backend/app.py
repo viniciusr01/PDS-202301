@@ -1,5 +1,5 @@
 from src.adapters.app.Server import CreateApp
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 
 app = CreateApp()

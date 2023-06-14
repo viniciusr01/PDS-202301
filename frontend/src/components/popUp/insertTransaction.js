@@ -5,6 +5,7 @@ import api from "../../services/api"
 
 
 function InsertTransaction({ display, setDisplay, type, setType }){
+
     const fontesDePagamento = [
         {
             "name": "Santander",
@@ -23,31 +24,34 @@ function InsertTransaction({ display, setDisplay, type, setType }){
         }
     ]
 
-    const categorias = [
-        {
-            "name": "Lazer",
-            "id": "1",
-            "color": "#FFFFFF"
-        },
-        {
-            "name": "Saúde",
-            "id": "2",
-            "color": "#FFFFFF"
-        },
-        {
-            "name": "Compras",
-            "id": "3",
-            "color": "#FFFFFF"
-        }
-    ]
     const [valor, setValor] = useState("");
     const [data, setData] = useState("");
     const [descricao, setDescricao] = useState("");
     const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0].id)
-    const [categoria, setCategoria] = useState(categorias[0].id)
+    const [categoria, setCategoria] = useState('')
 
-    // const user = JSON.parse(localStorage.user)
-    const user = {"user_id": "15899451742"}
+    const user = JSON.parse(localStorage.cpf)
+
+    const [categorias, setCategorias] = useState([])
+
+
+    useEffect(() => {
+
+        fetch(`http://localhost:8000/category/${user}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                setCategorias(data.Categories)
+                console.log(data.Categories)
+
+            })
+            .catch((error) => console.log(error))
+
+    }, [])
 
     const criaTransacao = () => {
         console.log(
@@ -114,7 +118,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                                 onChange={(e)=>{setFontePagamento(e.target.value)}}>
                                     {fontesDePagamento.map( e => {
                                         return(
-                                            <option value={e.id}>{e.name}</option>
+                                            <option  key={e.id} value={e.id}>{e.name}</option>
                                         )
                                      
                                     })}
@@ -124,7 +128,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                                 onChange={(e)=>{setCategoria(e.target.value)}}>
                                     {categorias.map( e => {
                                         return(
-                                            <option value={e.id}>{e.name}</option>
+                                            <option key={e.id} value={e.id}>{e.Name}</option>
                                         )
                                     
                                     })}
