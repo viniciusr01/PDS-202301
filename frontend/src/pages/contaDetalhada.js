@@ -27,34 +27,57 @@ function ContaDetalhada(){
 
     const [select, setSelect] = useState();
     const [mes, setMes] = useState(date.getMonth() + 1);
+    const [ano, setAno] = useState(date.getFullYear());
 
 
-    const receitas  = JSON.parse(localStorage.getItem('incomes'))
-    const despesas = JSON.parse(localStorage.getItem('expenses'))
+    const [receitas, setReceitas]  = useState(JSON.parse(localStorage.getItem('incomes')))
+    const [despesas, setDespesas] = useState(JSON.parse(localStorage.getItem('expenses')))
     const accounts = JSON.parse(localStorage.getItem('accounts'))
     const categories = JSON.parse(localStorage.getItem('categories'))
+    const user = JSON.parse(localStorage.getItem('cpf'))
+
+    useEffect(()=> {
+        let mesAux = mes + 1
+        let anoAux = ano
+        
+        if(mesAux == 13){
+            mesAux = 1
+            anoAux += 1
+        }
+
+        api.get(
+            `/expense/${user}/${ano}-${mes}-01/${anoAux}-${mesAux}-01`
+            ).then(info => {
+            setDespesas(info.data.Expenses)
+        })
+
+        api.get(
+            `/income/${user}/${ano}-${mes}-01/${anoAux}-${mesAux}-01`
+            ).then(info => {
+            setReceitas(info.data.Incomes)
+        })
+    }, [mes, ano])
 
 
     function handleMesAnterior(){
-        if (mes == 0)
-            setMes(11); 
-
+        if (mes == 1){
+            setMes(12); 
+            setAno(ano - 1);
+        }
+        
         else
             setMes(mes - 1);
     } 
     
     function handleMesSucessor(){
-        if(mes == 11)
-            setMes(0);
-
+        if(mes == 12){
+            setMes(1);
+            setAno(ano + 1);
+        }
+        
         else 
-            setMes(mes + 1);
+        setMes(mes + 1);
     } 
-
-    receitas.forEach(element => {
-        console.log(accounts)
-        console.log(categories.find((category) => category.Id == element.Id_category)?.Name) 
-    })
 
     return(
         <div className="conta_detalhada_container">
@@ -75,7 +98,7 @@ function ContaDetalhada(){
                                 <button onClick={ () => handleMesAnterior()}>
                                     <ArrowBackIosIcon/>
                                 </button>
-                                <h5>{meses[mes]}</h5>
+                                <h5>{meses[mes - 1]}</h5>
                                 <button onClick={ () => handleMesSucessor()}>
                                     <ArrowForwardIosIcon/>
                                 </button>
@@ -100,7 +123,7 @@ function ContaDetalhada(){
                                     <p>{e.Description}</p>    
                                     <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
                                     <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
-                                    <p>{e.Value}</p>    
+                                    <p>R$ {e.Value}</p>    
                                 </div> )
                             }
                         )
@@ -112,7 +135,7 @@ function ContaDetalhada(){
                                 <p>{e.Description}</p>    
                                 <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
                                 <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
-                                <p>{e.Value}</p>    
+                                <p>R$ {e.Value}</p>    
                             </div> )
                         })}
                     </div>

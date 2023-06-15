@@ -147,7 +147,7 @@ function Principal(){
         <div className='grid principal_container'>
             <Header/>
             <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType} setUpdate={setUpdate} fontesDePagamento={fontesDePagamento} user={user} categories={categories}/>
-            <CreateAccount display={ modalConta } setDisplay={setModalConta}/>
+            <CreateAccount display={ modalConta } setDisplay={setModalConta} user={user}/>
             <CreateCategory display={ modalCategory } setDisplay={setModalCategory}/>
             <div className='grid principal_bloco_principal'>                
                 <div></div>

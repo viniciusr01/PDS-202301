@@ -6,6 +6,7 @@ from ..app.blueprints.IncomeBlueprint import income
 from ..app.blueprints.ExpenseBlueprint import expense
 from ..app.blueprints.CategoryBlueprint import category
 from ..app.blueprints.AuthBlueprint import auth
+from ..app.blueprints.AccountBlueprint import account
 
 from flask import Flask
 from flask_cors import CORS, cross_origin
@@ -22,6 +23,7 @@ def CreateApp():
     app.register_blueprint(expense, url_prefix='/expense')
     app.register_blueprint(category, url_prefix='/category')
     app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(account, url_prefix='/account')
 
 
     @app.route("/", methods = ['GET'])

@@ -33,6 +33,10 @@ class ISql:
         pass
 
     @abstractmethod
+    def AddAccount(self, account: dict) -> int:
+        pass
+
+    @abstractmethod
     def RetrieveSumIncomeFromAccount(self, id_account: str, date: date = date.today()) -> float:
         pass
 
