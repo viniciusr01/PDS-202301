@@ -112,6 +112,30 @@ class SqlAdapter(ISql):
 
         res = self.__execute__(SQL_QUERY)
         print(res)
+    
+    def AddAccount(self, account: dict) -> int:
+        if not ValidObject().make(account, [
+            "name",
+            "user_cpf"
+        ]):
+            raise Exception('''Some key is missing. The following keys are expected: 
+                name, description, user_cpf''')
+        
+        SQL_QUERY = f'''
+            INSERT INTO account ("name", "description", "fees", "color", "id_bank", "cpf_user")
+            VALUES(
+                '{account['name']}',
+                '{account['description']}',
+                '{account['fees']}',
+                '{account['color']}',
+                '1',
+                '{account['user_cpf']}'
+            )
+            RETURNING id
+        '''
+
+        res = self.__execute__(SQL_QUERY)
+        return res.id
         
 
     def RetrieveIncomesFromAccount(self, id_account: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
