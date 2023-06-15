@@ -13,10 +13,13 @@ class AccountFactory:
         ]):
             raise TypeError("Bad Request: Some key for a Account is missing.")
         
-        return Account(
+        a = Account(
             name=obj['name'],
             description=obj['description'],
             color=obj['color'],
             fees=obj['fees'],
-            user_cpf=obj['user_cpf']
+            cpf_user=obj['user_cpf'],
+            id=obj['id'] if "id" in obj.keys() else 0
         )
+
+        return a

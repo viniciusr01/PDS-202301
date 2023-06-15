@@ -20,6 +20,7 @@ def AddCategory():
 
 
     except TypeError as e:
+        print(e, e.with_traceback)
         return jsonify(str(e)), 400
          
 

@@ -8,13 +8,13 @@ class MakeAccount:
     def make(self, account: Account) -> str:
         print("Adding a account... ")
 
-        self.db.AddAccount({
+        res = self.db.AddAccount({
             "name": account.name,
             "description": account.description,
             "color": account.color,
-            "user_cpf": account.user_cpf,
+            "user_cpf": account.cpf_user,
             "fees": account.fees,
             "balance": account.balance
         })
 
-        return "The category was successfully added."
+        return res
