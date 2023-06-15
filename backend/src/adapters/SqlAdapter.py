@@ -134,8 +134,8 @@ class SqlAdapter(ISql):
             RETURNING id
         '''
 
-        res = self.__execute__(SQL_QUERY)
-        return res.id
+        res, = self.__execute__(SQL_QUERY)[0]
+        return res
         
 
     def RetrieveIncomesFromAccount(self, id_account: str, initial_date: date, end_date: date = date.today()) -> list[Income]:
