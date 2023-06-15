@@ -12,9 +12,9 @@ class RetrieveIncomesDTO:
             aux = {
                 "Description": income.description,
                 "Value": income.value,
-                "Reference date": income.reference_date,
-                "Id category": income.id_category,
-                "Id account": income.id_account
+                "Reference_date": income.reference_date,
+                "Id_category": income.id_category,
+                "Id_account": income.id_account
             }
             aux_list.append(aux)
         

@@ -20,7 +20,10 @@ function Principal(){
     const [expenses, setExpenses] = useState([]);
     const [dataGraphBar, setDataGraphBar] = useState([]);
     const [dataGraphCircle, setDataGraphCircle] = useState([]);
-    const [update, setUpdate] = useState(true)
+    const [fontesDePagamento, setFontesDePagamento] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [user, setUser] = useState();
+    const [update, setUpdate] = useState(true);
     const queryParameters = new URLSearchParams(window.location.search)
     
     useEffect(()=>{
@@ -40,22 +43,26 @@ function Principal(){
 
         } else {
             console.log("Buscando parâmetros do usuário no back...")
-            const cpf = queryParameters.get("cpf")
-            localStorage.setItem("cpf",cpf)
+            const cpf = queryParameters.get("cpf") ? queryParameters.get("cpf") : localStorage.getItem("cpf") 
+            
+            setUser(cpf)
+            localStorage.setItem("cpf", cpf)
     
             axios.get(`http://localhost:8000/user/${cpf}`)
                 .then(info => {
-                    console.log(info.data)
                     localStorage.setItem("name",info.data.User.name)
                     localStorage.setItem("email",info.data.User.email)
                     localStorage.setItem("accounts",JSON.stringify(info.data.Accounts))
                     localStorage.setItem("incomes",JSON.stringify(info.data.Incomes))
                     localStorage.setItem("expenses",JSON.stringify(info.data.Expenses))
+                    localStorage.setItem("categories",JSON.stringify(info.data.Categories))
     
                     incomesAux = info.data.Incomes
                     expensesAux = info.data.Expenses
-
                     
+                    setFontesDePagamento(info.data.Accounts);
+                    setCategories(info.data.Categories);
+
                     setIncomes(incomesAux.reduce(
                         (acc, currentValue) => acc + currentValue?.Value, 0
                         ))
@@ -87,15 +94,23 @@ function Principal(){
         const incomesAux = JSON.parse(localStorage.getItem('incomes'))
         const expensesAux = JSON.parse(localStorage.getItem('expenses'))
 
+        // TODO: CORRIGIR NAME DE CADA UM
         setDataGraphCircle({
-            "Expenses": expensesAux.map((e) => e['Id catego']).map((e) => {
-                e: expensesAux.filter((expense) => expense['Id catego']=== e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-            }),
+            "Expenses": expensesAux.map((e) => e.Id_category).map((e) => ({
+                'name': e,
+                'value': expensesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            })),
             
-            "Incomes": incomesAux.map((e) => e['Id catego']).map((e) => {
-                e: incomesAux.filter((income) => income['Id catego'] === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-            })
+            "Incomes": incomesAux.map((e) => e.Id_category).map((e) => ({
+                'name': e,
+                'value': incomesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            }))
         })
+
+        console.log(dataGraphCircle)
+        console.log(categories.find((category) => category.Id == 11)?.Name)
+
+
     }, [incomes, expenses])
 
     const data02 = [
@@ -131,7 +146,7 @@ function Principal(){
     return (
         <div className='grid principal_container'>
             <Header/>
-            <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType} setUpdate={setUpdate}/>
+            <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType} setUpdate={setUpdate} fontesDePagamento={fontesDePagamento} user={user} categories={categories}/>
             <CreateAccount display={ modalConta } setDisplay={setModalConta}/>
             <CreateCategory display={ modalCategory } setDisplay={setModalCategory}/>
             <div className='grid principal_bloco_principal'>                
@@ -168,7 +183,7 @@ function Principal(){
                                 <div className='shadow principal_card_maior'>
                                     <div className='flex principal_card_maior_detalhes'>
                                         <PieChart width={300} height={250}>
-                                            <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
+                                            <Pie data={dataGraphCircle.Expenses} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
                                         <p  onClick={() => navigate("/account")}>VER MAIS</p>
                                     </div>
@@ -179,7 +194,7 @@ function Principal(){
                                 <div className='shadow principal_card_maior'>
                                     <div className='flex principal_card_maior_detalhes'>
                                         <PieChart width={300} height={250}>
-                                            <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
+                                            <Pie data={dataGraphCircle.Incomes} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
                                         <p  onClick={() => navigate("/account")}>VER MAIS</p>
                                     </div>
