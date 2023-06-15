@@ -5,8 +5,10 @@ class Category:
                  name: str, 
                  description: str,
                  user_cpf: str,
+                 id: int,
                  color: str = DefaultColor.code) -> None:
         self.name = name
         self.description = description
         self.user_cpf = user_cpf
         self.color = color
+        self.id = id

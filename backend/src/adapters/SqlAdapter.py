@@ -278,7 +278,7 @@ class SqlAdapter(ISql):
         
     def RetrieveCategoriesFromUser(self, user_cpf: int) -> list[Category]:
         SQL_QUERY = f'''
-            SELECT name, description, color, cpf_user
+            SELECT id, name, description, color, cpf_user
             FROM category c
             WHERE c.cpf_user = '{user_cpf}'
         '''
@@ -288,11 +288,12 @@ class SqlAdapter(ISql):
 
         res = []
 
-        for name, description, color, user_cpf in categories:
+        for id, name, description, color, user_cpf in categories:
             aux = Category(
                 name, 
                 description,
                 user_cpf,
+                id,
                 color
             )
             res.append(aux)

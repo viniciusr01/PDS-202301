@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import api from "../../services/api"
 
 
-function InsertTransaction({ display, setDisplay, type, setType }){
+function InsertTransaction({ display, setDisplay, type, setType, setUpdate }){
+    var fontes = JSON.parse(localStorage.getItem('accounts')?localStorage.getItem('accounts') : '[]');
 
     const fontesDePagamento = [
         {
@@ -24,7 +25,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
         }
     ]
 
-    const [valor, setValor] = useState("");
+    const [valor, setValor] = useState(0.0);
     const [data, setData] = useState("");
     const [descricao, setDescricao] = useState("");
     const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0].id)
@@ -46,7 +47,6 @@ function InsertTransaction({ display, setDisplay, type, setType }){
             .then((resp) => resp.json())
             .then((data) => {
                 setCategorias(data.Categories)
-                console.log(data.Categories)
 
             })
             .catch((error) => console.log(error))
@@ -61,7 +61,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                 },
                 "transaction": {
                     "description": descricao,
-                    "value": valor,
+                    "value": parseFloat(valor),
                     "reference_date": data,
                     "id_account": fontePagamento,
                     "id_category": categoria,
@@ -70,6 +70,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
             }}
         )
 
+        setUpdate(true)
 
         api.post('/transaction/', {
             "user":{
@@ -105,9 +106,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                     <div className="grid insert_transaction_input_group">
                         <input type="text" className="pop_up_input" placeholder="R$0.00" 
                             onChange={(e)=>{
-                                setValor(e.target.value)
-                                console.log(valor)
-                                
+                                setValor(e.target.value)                                
                                 }}/>
                         <input className="pop_up_input" placeholder="Data"
                             onChange={(e)=>{setData(e.target.value)}}/>
@@ -116,9 +115,9 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                         <div className="grid pop_up_input_group_line">
                             <select className="pop_up_input" placeholder="Fonte de Pagamento"
                                 onChange={(e)=>{setFontePagamento(e.target.value)}}>
-                                    {fontesDePagamento.map( e => {
+                                    {fontes.map( e => {
                                         return(
-                                            <option  key={e.id} value={e.id}>{e.name}</option>
+                                            <option  key={e.Id} value={e.Id}>{e.Name}</option>
                                         )
                                      
                                     })}
@@ -128,7 +127,7 @@ function InsertTransaction({ display, setDisplay, type, setType }){
                                 onChange={(e)=>{setCategoria(e.target.value)}}>
                                     {categorias.map( e => {
                                         return(
-                                            <option key={e.id} value={e.id}>{e.Name}</option>
+                                            <option key={e.Id} value={e.Id}>{e.Name}</option>
                                         )
                                     
                                     })}

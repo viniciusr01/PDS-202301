@@ -12,14 +12,14 @@ class RetrieveExpensesDTO:
             aux = {
                 "Description": expense.description,
                 "Value": expense.value,
-                "Reference date": expense.reference_date,
-                "Id category": expense.id_category,
-                "Id credit card": expense.id_credit_card,
-                "Id bill": expense.id_bill,
-                "Id account": expense.id_account,
-                "Is recurency": expense.is_recurrency,
-                "End date": expense.end_date,
-                "Number of installments": expense.number_of_installments
+                "Reference_date": expense.reference_date,
+                "Id_category": expense.id_category,
+                "Id_credit card": expense.id_credit_card,
+                "Id_bill": expense.id_bill,
+                "Id_account": expense.id_account,
+                "Is_recurency": expense.is_recurrency,
+                "End_date": expense.end_date,
+                "Number_of_installments": expense.number_of_installments
             }
             aux_list.append(aux)
         

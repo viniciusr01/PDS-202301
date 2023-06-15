@@ -17,11 +17,12 @@ def CreateTransaction():
                 return jsonify(msg=('Header Error'))
 
         data = request.get_json()
-
+        print(data['user'])
         return jsonify(MakeTransaction(SqlAdapter()).make(TransactionFactory().make(obj=data['transaction'])))
 
 
     except TypeError as e:
+        print(e.args)
         return jsonify(str(e)), 400
          
 
