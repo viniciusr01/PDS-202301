@@ -4,54 +4,12 @@ import { useState, useEffect } from "react";
 import api from "../../services/api"
 
 
-function InsertTransaction({ display, setDisplay, type, setType, setUpdate }){
-    var fontes = JSON.parse(localStorage.getItem('accounts')?localStorage.getItem('accounts') : '[]');
-
-    const fontesDePagamento = [
-        {
-            "name": "Santander",
-            "id": "1",
-            "color": "#FFFFFF"
-        },
-        {
-            "name": "Nubank",
-            "id": "2",
-            "color": "#FFFFFF"
-        },
-        {
-            "name": "Cartao Nu",
-            "id": "3",
-            "color": "#FFFFFF"
-        }
-    ]
-
+function InsertTransaction({ display, setDisplay, type, setType, setUpdate, fontesDePagamento, user, categories}){
     const [valor, setValor] = useState(0.0);
     const [data, setData] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0].id)
+    const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0]?.Id)
     const [categoria, setCategoria] = useState('')
-
-    const user = JSON.parse(localStorage.cpf)
-
-    const [categorias, setCategorias] = useState([])
-
-
-    useEffect(() => {
-
-        fetch(`http://localhost:8000/category/${user}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                setCategorias(data.Categories)
-
-            })
-            .catch((error) => console.log(error))
-
-    }, [])
 
     const criaTransacao = () => {
         console.log(
@@ -115,7 +73,7 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate }){
                         <div className="grid pop_up_input_group_line">
                             <select className="pop_up_input" placeholder="Fonte de Pagamento"
                                 onChange={(e)=>{setFontePagamento(e.target.value)}}>
-                                    {fontes.map( e => {
+                                    {fontesDePagamento.map( e => {
                                         return(
                                             <option  key={e.Id} value={e.Id}>{e.Name}</option>
                                         )
@@ -125,7 +83,7 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate }){
                             </select>
                             <select className="pop_up_input" placeholder="Categoria"
                                 onChange={(e)=>{setCategoria(e.target.value)}}>
-                                    {categorias.map( e => {
+                                    {categories.map( e => {
                                         return(
                                             <option key={e.Id} value={e.Id}>{e.Name}</option>
                                         )

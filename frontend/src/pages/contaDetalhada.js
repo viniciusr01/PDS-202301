@@ -24,118 +24,16 @@ const meses = [
 
 function ContaDetalhada(){
     const date = new Date();
-    const user = {'user_id': "15899451742"}
 
     const [select, setSelect] = useState();
     const [mes, setMes] = useState(date.getMonth() + 1);
-    const [despesas, setDespesa] = useState([
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Cartão de Crédito Nu',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        }
-    ])
-
-    const [receitas, setReceita] = useState([
-
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        },
-        {
-            'Data': "18/12/2023",
-            'Descrição': "Descrição válida",
-            'Conta': 'Santander',
-            'Categoria': 'Lazer',
-            'Valor': 'R$180,00'
-        }
-    ])
 
 
-    // const incomes = () => {
-    //     return api.post('/income/'+ user.user_id, {
-    //         'initial_date': '2023-'+ (mes) + '-01',
-    //         'end_date': '2023-'+ (mes+1) + '-01'
-        
-    //     }).then((res) => {
-    //             setReceita(res.data.Incomes);
-    //     }).catch((err) => {
-    //         console.error(err);
-    //     })
-    // }
+    const receitas  = JSON.parse(localStorage.getItem('incomes'))
+    const despesas = JSON.parse(localStorage.getItem('expenses'))
+    const accounts = JSON.parse(localStorage.getItem('accounts'))
+    const categories = JSON.parse(localStorage.getItem('categories'))
 
-    // const expenses = () => {
-    //     return api.post('/expense/' + user.user_id, {
-    //         'initial_date': '2023-'+ (mes) + '-01',
-    //         'end_date': '2023-'+ (mes+1) + '-01'
-        
-    //     }).then((res) => {
-    //             setDespesa(res.data.Expenses);
-    //     }).catch((err) => {
-    //         console.error(err);
-    //     })
-    // } 
-
-    // useEffect(() => {
-        
-    //     expenses();
-    //     incomes();
-    //     console.log(receitas)
-    //   }, [mes]);
 
     function handleMesAnterior(){
         if (mes == 0)
@@ -152,6 +50,11 @@ function ContaDetalhada(){
         else 
             setMes(mes + 1);
     } 
+
+    receitas.forEach(element => {
+        console.log(accounts)
+        console.log(categories.find((category) => category.Id == element.Id_category)?.Name) 
+    })
 
     return(
         <div className="conta_detalhada_container">
@@ -193,11 +96,11 @@ function ContaDetalhada(){
                         receitas.map(
                             e => { return(
                                 <div className="conta_detalhada_linha">
-                                    <p>{e.Data}</p>    
-                                    <p>{e.Descrição}</p>    
-                                    <p>{e.Conta}</p>    
-                                    <p>{e.Categoria}</p>    
-                                    <p>{e.Valor}</p>    
+                                    <p>{e.Reference_date}</p>    
+                                    <p>{e.Description}</p>    
+                                    <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
+                                    <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
+                                    <p>{e.Value}</p>    
                                 </div> )
                             }
                         )
@@ -205,11 +108,11 @@ function ContaDetalhada(){
                         despesas.map(
                             e => { return(
                             <div className="conta_detalhada_linha">
-                                <p>{e.Data}</p>    
-                                <p>{e.Descrição}</p>    
-                                <p>{e.Conta}</p>    
-                                <p>{e.Categoria}</p>    
-                                <p>{e.Valor}</p>    
+                                <p>{e.Reference_date}</p>    
+                                <p>{e.Description}</p>    
+                                <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
+                                <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
+                                <p>{e.Value}</p>    
                             </div> )
                         })}
                     </div>

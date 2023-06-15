@@ -1,7 +1,9 @@
 from datetime import date, datetime
 from flask import Blueprint, jsonify
+from src.domain.gates.dto.RetrieveCategoriesDTO import RetrieveCategoriesDTO
 from src.domain.gates.dto.RetrieveExpensesDTO import RetrieveExpensesDTO
 from src.domain.gates.dto.RetrieveIncomesDTO import RetrieveIncomesDTO
+from src.domain.services.RetrieveCategories import RetrieveCategories
 from src.domain.services.RetrieveExpensesInAPeriod import RetrieveExpensesInAPeriod
 from src.domain.services.RetrieveIncomesInAPeriod import RetrieveIncomesInAPeriod
 from src.domain.services.RetrieveUserAccounts import RetrieveUserAccounts
@@ -40,6 +42,9 @@ def RetrieveUserAccount(user_id: int):
         incomes = RetrieveIncomesDTO().make(incomes)
         res.update(incomes)
 
+        categories = RetrieveCategories(SqlAdapter()).make(user_id=str(user_id))
+        categories = RetrieveCategoriesDTO().make(categories)
+        res.update(categories)
 
         return res
 
