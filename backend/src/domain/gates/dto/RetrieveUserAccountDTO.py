@@ -16,7 +16,8 @@ class RetrieveUserAccountDTO:
                     "Description": account.description,
                     "Fees": account.fees,
                     "Color": account.color,
-                    "Balance": account.balance
+                    "Balance": account.balance,
+                    "Id": account.id
                     # BANK: ACCOUNT.BANK_NAME
                     # TODO: TRAZER O NOME DO BANCO AQUI
                 }
@@ -24,6 +25,7 @@ class RetrieveUserAccountDTO:
                 aux = {
                     "Name": account.name,
                     "Description": account.description,
+                    "Id": account.id,
                     "Fees": account.fees,
                     "Color": account.color,
                     "Closure": account.closure_day, # type: ignore

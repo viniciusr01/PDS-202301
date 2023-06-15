@@ -15,36 +15,88 @@ import { useNavigate } from "react-router-dom";
 
 
 function Principal(){
-
+    const [balance, setBalance] = useState();
+    const [incomes, setIncomes] = useState([]);
+    const [expenses, setExpenses] = useState([]);
+    const [dataGraphBar, setDataGraphBar] = useState([]);
+    const [dataGraphCircle, setDataGraphCircle] = useState([]);
+    const [update, setUpdate] = useState(true)
     const queryParameters = new URLSearchParams(window.location.search)
     
-    if(queryParameters.get("cpf")){
-        const cpf = queryParameters.get("cpf")
-        localStorage.setItem("cpf",cpf)
+    useEffect(()=>{
+        var incomesAux = []
+        var expensesAux = []
 
-        axios.get(`http://localhost:8000/user/${cpf}`)
-        .then(info => {
-                localStorage.setItem("name",info.data.User.name)
-                localStorage.setItem("email",info.data.User.email)
-                localStorage.setItem("accounts",info.data.Accounts)
-            }
-        )      
-    }
+        if(update == false){
+            incomesAux = JSON.parse(localStorage.getItem('incomes'))
+            expensesAux = JSON.parse(localStorage.getItem('expenses'))
+
+            setIncomes(incomesAux.reduce(
+                (acc, currentValue) => acc + currentValue?.Value, 0
+                ))
+            setExpenses(expensesAux.reduce(
+                (acc, currentValue) => acc + currentValue?.Value, 0
+                ))
+
+        } else {
+            console.log("Buscando parâmetros do usuário no back...")
+            const cpf = queryParameters.get("cpf")
+            localStorage.setItem("cpf",cpf)
     
+            axios.get(`http://localhost:8000/user/${cpf}`)
+                .then(info => {
+                    console.log(info.data)
+                    localStorage.setItem("name",info.data.User.name)
+                    localStorage.setItem("email",info.data.User.email)
+                    localStorage.setItem("accounts",JSON.stringify(info.data.Accounts))
+                    localStorage.setItem("incomes",JSON.stringify(info.data.Incomes))
+                    localStorage.setItem("expenses",JSON.stringify(info.data.Expenses))
+    
+                    incomesAux = info.data.Incomes
+                    expensesAux = info.data.Expenses
 
-    const data = [
-        {
-            'Receita': 2000,
-            'Despesa': 1000
-        }
-    ]
+                    
+                    setIncomes(incomesAux.reduce(
+                        (acc, currentValue) => acc + currentValue?.Value, 0
+                        ))
+                    setExpenses(expensesAux.reduce(
+                        (acc, currentValue) => acc + currentValue?.Value, 0
+                        ))
+                }
+                
+                ) 
+            }
+            
 
-    const user_accounts = {
-        'saldo': 1000,
-        'balanco': 1000,
-        'receitas': 2000,
-        'despesas': 1000
-    }
+
+            setUpdate(false)
+             
+    }, [])
+
+    useEffect(()=> {
+        setBalance(incomes - expenses)
+        setDataGraphBar(
+            [
+                {
+                    'Receita': incomes,
+                    'Despesa': expenses
+                }
+            ]
+        )
+
+        const incomesAux = JSON.parse(localStorage.getItem('incomes'))
+        const expensesAux = JSON.parse(localStorage.getItem('expenses'))
+
+        setDataGraphCircle({
+            "Expenses": expensesAux.map((e) => e['Id catego']).map((e) => {
+                e: expensesAux.filter((expense) => expense['Id catego']=== e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            }),
+            
+            "Incomes": incomesAux.map((e) => e['Id catego']).map((e) => {
+                e: incomesAux.filter((income) => income['Id catego'] === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            })
+        })
+    }, [incomes, expenses])
 
     const data02 = [
         {
@@ -79,7 +131,7 @@ function Principal(){
     return (
         <div className='grid principal_container'>
             <Header/>
-            <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType}/>
+            <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType} setUpdate={setUpdate}/>
             <CreateAccount display={ modalConta } setDisplay={setModalConta}/>
             <CreateCategory display={ modalCategory } setDisplay={setModalCategory}/>
             <div className='grid principal_bloco_principal'>                
@@ -94,19 +146,19 @@ function Principal(){
                     <div className='grid principal_cards_menores'>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Saldo Atual <ArrowForwardIosIcon/> </h5>
-                            <p>{user_accounts.saldo}</p>
+                            <p>R$ {balance}</p>
                         </div>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Receitas <ArrowForwardIosIcon/> </h5>
-                            <p>{user_accounts.receitas}</p>
+                            <p>R$ {incomes}</p>
                         </div>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Despesas <ArrowForwardIosIcon/> </h5>
-                            <p>{user_accounts.despesas}</p>
+                            <p>R$ {expenses}</p>
                         </div>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
                             <h5>Balanço <ArrowForwardIosIcon/> </h5>
-                            <p>{user_accounts.balanco}</p>
+                            <p>R$ {balance}</p>
                         </div>
                     </div>
                     <div>
@@ -138,7 +190,7 @@ function Principal(){
                     <div className='principal_card_extendido'>
                         <h5>Balanço Mensal</h5>
                         <div className='grid shadow principal_card_extendido_infos'>
-                            <BarChart width={300} height={200} data={data}>
+                            <BarChart width={300} height={200} data={dataGraphBar}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <YAxis />
                                 <Tooltip />
@@ -149,15 +201,15 @@ function Principal(){
                             <div className='grid principal_card_extendido_infos_texto'>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Receitas</h5>
-                                    <p style={{"color": "#428D2F"}}>{data[0].Receita}</p>
+                                    <p style={{"color": "#428D2F"}}>{dataGraphBar[0]?.Receita}</p>
                                 </div>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Despeas</h5>
-                                    <p style={{"color": "#BA0000"}}>{data[0].Despesa}</p>
+                                    <p style={{"color": "#BA0000"}}>{dataGraphBar[0]?.Despesa}</p>
                                 </div>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Balanço</h5>
-                                    <p >{data[0].Receita - data[0].Despesa}</p>
+                                    <p >{dataGraphBar[0]?.Receita - dataGraphBar[0]?.Despesa}</p>
                                 </div>
                             </div>
                         </div>

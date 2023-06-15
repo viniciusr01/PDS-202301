@@ -15,7 +15,7 @@ class MakeTransaction:
                 print("Adding an expense installment")
                 self.db.AddExpense({
                     "description": transaction.description + f" {i + 1}/{transaction.number_of_installments}", #type: ignore
-                    "value": transaction.value / transaction.number_of_installments, # type: ignore
+                    "value": float(transaction.value) / transaction.number_of_installments, # type: ignore
                     "reference_date": transaction.reference_date + relativedelta(months=i),
                     "id_account": transaction.id_account,  # type: ignore
                     "id_category": transaction.id_category,

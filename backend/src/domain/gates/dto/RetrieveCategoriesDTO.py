@@ -13,7 +13,8 @@ class RetrieveCategoriesDTO:
                 "Name": category.name,
                 "Description": category.description,
                 "Color": category.color,
-                "User CPF": category.user_cpf
+                "User CPF": category.user_cpf,
+                "Id": category.id
             }
             aux_list.append(aux)
         
