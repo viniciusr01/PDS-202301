@@ -10,6 +10,7 @@ from src.domain.gates.dto.RetrieveCategoriesDTO import RetrieveCategoriesDTO
 category = Blueprint('category', __name__,)
 
 @category.route('/', methods = ['POST'])
+@cross_origin()
 def AddCategory():
     try:
         if request.headers['Content-Type'] != 'application/json':
@@ -17,7 +18,7 @@ def AddCategory():
                 return jsonify(msg=('Header Error'))
 
         data = request.get_json()
-
+        
         return jsonify(MakeCategory(SqlAdapter()).make(CategoryFactory().make(obj=data['category'])))
 
 
@@ -30,6 +31,7 @@ def AddCategory():
         return "An internal error occurred.", 500
 
 @category.route('/<user_id>', methods = ['GET'])
+@cross_origin()
 def RetrieveCategory(user_id: int):
     try:
         category = RetrieveCategories(SqlAdapter()).make(user_id=str(user_id))

@@ -94,18 +94,18 @@ function Principal(){
         const incomesAux = JSON.parse(localStorage.getItem('incomes'))
         const expensesAux = JSON.parse(localStorage.getItem('expenses'))
 
-        // TODO: CORRIGIR NAME DE CADA UM
-        setDataGraphCircle({
-            "Expenses": expensesAux.map((e) => e.Id_category).map((e) => ({
-                'name': e,
-                'value': expensesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-            })),
+        // // TODO: CORRIGIR NAME DE CADA UM
+        // setDataGraphCircle({
+        //     "Expenses": expensesAux.map((e) => e.Id_category).map((e) => ({
+        //         'name': e,
+        //         'value': expensesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+        //     })),
             
-            "Incomes": incomesAux.map((e) => e.Id_category).map((e) => ({
-                'name': e,
-                'value': incomesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-            }))
-        })
+        //     "Incomes": incomesAux.map((e) => e.Id_category).map((e) => ({
+        //         'name': e,
+        //         'value': incomesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
+        //     }))
+        // })
 
         console.log(dataGraphCircle)
         console.log(categories.find((category) => category.Id == 11)?.Name)

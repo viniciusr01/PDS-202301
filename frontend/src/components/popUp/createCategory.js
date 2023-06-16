@@ -14,7 +14,6 @@ function CreateCategory({ display, setDisplay }){
 
     function criaCategoria(nome, descricao, cor){
 
-
        const dataToSend = {
             "category":
             {
@@ -32,7 +31,7 @@ function CreateCategory({ display, setDisplay }){
             },
             body: JSON.stringify(dataToSend),
        })
-       .then( res =>  window.location.reload())
+       .then( res =>  console.log(res))
        .catch((err) => {
             console.error(err);
        })
