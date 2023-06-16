@@ -7,7 +7,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header(){
     let navigate = useNavigate(); 
-
+    
+    function logout(){
+        localStorage.clear();
+        navigate('/');
+    }
+    
     return(
     <div>
         <div className="header_container">
@@ -18,7 +23,7 @@ function Header(){
                     <img onClick={() => navigate("/main")} className="header_logo" src={logo}></img>
                 </div>
                 <div className="flex header_logout">
-                    <LogoutIcon/>
+                    <LogoutIcon onClick={() => logout()} />
                 </div>
             </div>
             <div></div>

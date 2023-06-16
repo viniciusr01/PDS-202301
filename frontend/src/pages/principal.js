@@ -34,12 +34,8 @@ function Principal(){
             incomesAux = JSON.parse(localStorage.getItem('incomes'))
             expensesAux = JSON.parse(localStorage.getItem('expenses'))
 
-            setIncomes(incomesAux.reduce(
-                (acc, currentValue) => acc + currentValue?.Value, 0
-                ))
-            setExpenses(expensesAux.reduce(
-                (acc, currentValue) => acc + currentValue?.Value, 0
-                ))
+            setIncomes(incomesAux?.reduce((acc, currentValue) => acc + currentValue?.Value, 0))
+            setExpenses(expensesAux?.reduce((acc, currentValue) => acc + currentValue?.Value, 0))
 
         } else {
             console.log("Buscando parâmetros do usuário no back...")
@@ -51,7 +47,7 @@ function Principal(){
             axios.get(`http://localhost:8000/user/${cpf}`)
                 .then(info => {
 
-                    console.log(info.data)
+                    console.log(info.data);
 
                     localStorage.setItem("name",info.data.User.name)
                     localStorage.setItem("email",info.data.User.email)
@@ -60,27 +56,17 @@ function Principal(){
                     localStorage.setItem("expenses",JSON.stringify(info.data.Expenses))
                     localStorage.setItem("categories",JSON.stringify(info.data.Categories))
     
-                    incomesAux = info.data.Incomes
-                    expensesAux = info.data.Expenses
+                    incomesAux = info.data.Incomes;
+                    expensesAux = info.data.Expenses;
                     
                     setFontesDePagamento(info.data.Accounts);
                     setCategories(info.data.Categories);
 
-                    setIncomes(incomesAux.reduce(
-                        (acc, currentValue) => acc + currentValue?.Value, 0
-                        ))
-                    setExpenses(expensesAux.reduce(
-                        (acc, currentValue) => acc + currentValue?.Value, 0
-                        ))
-                }
-                
-                ) 
-            }
-            
+                    setIncomes(incomesAux?.reduce((acc, currentValue) => acc + currentValue?.Value, 0))
+                    setExpenses(expensesAux?.reduce((acc, currentValue) => acc + currentValue?.Value, 0))
+            })}
 
-
-            setUpdate(false)
-             
+            setUpdate(false)            
     }, [])
 
     useEffect(()=> {
@@ -97,39 +83,23 @@ function Principal(){
         const incomesAux = JSON.parse(localStorage.getItem('incomes'))
         const expensesAux = JSON.parse(localStorage.getItem('expenses'))
 
-        // // TODO: CORRIGIR NAME DE CADA UM
-        // setDataGraphCircle({
-        //     "Expenses": expensesAux.map((e) => e.Id_category).map((e) => ({
-        //         'name': e,
-        //         'value': expensesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-        //     })),
+        // TODO: CORRIGIR NAME DE CADA UM
+        setDataGraphCircle({
+            "Expenses": expensesAux?.map((e) => e.Id_category).map((e) => ({
+                'name': e,
+                'value': expensesAux?.filter((income) => income.Id_category === e)?.reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            })),
             
-        //     "Incomes": incomesAux.map((e) => e.Id_category).map((e) => ({
-        //         'name': e,
-        //         'value': incomesAux.filter((income) => income.Id_category === e).reduce((acc, currentValue) => acc + currentValue.Value, 0)
-        //     }))
-        // })
+            "Incomes": incomesAux?.map((e) => e.Id_category)?.map((e) => ({
+                'name': e,
+                'value': incomesAux?.filter((income) => income.Id_category === e)?.reduce((acc, currentValue) => acc + currentValue.Value, 0)
+            }))
+        })
 
-        // console.log(dataGraphCircle)
         // console.log(categories.find((category) => category.Id == 11)?.Name)
 
 
     }, [incomes, expenses])
-
-    const data02 = [
-        {
-            'name': 'Lazer',
-            'value': 300
-        },
-        {
-            'name': 'Farmácia',
-            'value': 50
-        },
-        {
-            'name': 'Shopping',
-            'value': 500
-        }
-    ]
 
     const criaModalDespesa = () => {
         setModalType('despesa');
@@ -156,10 +126,10 @@ function Principal(){
                 <div></div>
                 <div className='grid principal_bloco_principal_container'>
                     <div className='flex principal_botoes'>
-                        <button cypress_teste='buttonReceita' className='botao_receita_despesa' onClick={criaModalReceita}>+Receita</button>
-                        <button cypress_teste='buttonDespesa' className='botao_receita_despesa' onClick={criaModalDespesa}>+Despesa</button>
-                        <button cypress_teste='buttonConta' className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+Conta</button>
-                        <button cypress_teste='buttonCategory' className='botao_receita_despesa' onClick={() => setModalCategory('inline')}>+Categoria</button>
+                        <button className='botao_receita_despesa' onClick={criaModalReceita}>+ Receita</button>
+                        <button className='botao_receita_despesa' onClick={criaModalDespesa}>+ Despesa</button>
+                        <button className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+ Conta</button>
+                        <button className='botao_receita_despesa' onClick={() => setModalCategory('inline')}>+ Categoria</button>
                     </div>
                     <div className='grid principal_cards_menores'>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
