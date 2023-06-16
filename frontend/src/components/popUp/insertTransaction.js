@@ -81,7 +81,7 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate, font
                                     })}
                             
                             </select>
-                            <select className="pop_up_input" placeholder="Categoria"
+                            <select cypress_teste='placeCategory' className="pop_up_input" placeholder="Categoria"
                                 onChange={(e)=>{setCategoria(e.target.value)}}>
                                     {categories.map( e => {
                                         return(
