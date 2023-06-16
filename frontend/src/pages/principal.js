@@ -50,6 +50,9 @@ function Principal(){
     
             axios.get(`http://localhost:8000/user/${cpf}`)
                 .then(info => {
+
+                    console.log(info.data)
+
                     localStorage.setItem("name",info.data.User.name)
                     localStorage.setItem("email",info.data.User.email)
                     localStorage.setItem("accounts",JSON.stringify(info.data.Accounts))
@@ -107,8 +110,8 @@ function Principal(){
         //     }))
         // })
 
-        console.log(dataGraphCircle)
-        console.log(categories.find((category) => category.Id == 11)?.Name)
+        // console.log(dataGraphCircle)
+        // console.log(categories.find((category) => category.Id == 11)?.Name)
 
 
     }, [incomes, expenses])
@@ -148,7 +151,7 @@ function Principal(){
             <Header/>
             <InserTransaction display={ modalTransacao } setDisplay={setModalTransacao} type={modalType} setType={setModalType} setUpdate={setUpdate} fontesDePagamento={fontesDePagamento} user={user} categories={categories}/>
             <CreateAccount display={ modalConta } setDisplay={setModalConta} user={user}/>
-            <CreateCategory display={ modalCategory } setDisplay={setModalCategory}/>
+            <CreateCategory display={ modalCategory } setDisplay={setModalCategory} user={user}/>
             <div className='grid principal_bloco_principal'>                
                 <div></div>
                 <div className='grid principal_bloco_principal_container'>
@@ -216,15 +219,15 @@ function Principal(){
                             <div className='grid principal_card_extendido_infos_texto'>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Receitas</h5>
-                                    <p style={{"color": "#428D2F"}}>{dataGraphBar[0]?.Receita}</p>
+                                    <p style={{"color": "#428D2F"}}>R$ {dataGraphBar[0]?.Receita}</p>
                                 </div>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Despeas</h5>
-                                    <p style={{"color": "#BA0000"}}>{dataGraphBar[0]?.Despesa}</p>
+                                    <p style={{"color": "#BA0000"}}>R$ {dataGraphBar[0]?.Despesa}</p>
                                 </div>
                                 <div className='flex principal_card_extendido_infos_texto_linha'>
                                     <h5>Balanço</h5>
-                                    <p >{dataGraphBar[0]?.Receita - dataGraphBar[0]?.Despesa}</p>
+                                    <p >R$ {dataGraphBar[0]?.Receita - dataGraphBar[0]?.Despesa}</p>
                                 </div>
                             </div>
                         </div>

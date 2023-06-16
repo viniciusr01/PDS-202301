@@ -122,7 +122,7 @@ function ContaDetalhada(){
                                     <p>{e.Reference_date}</p>    
                                     <p>{e.Description}</p>    
                                     <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
-                                    <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
+                                    <p>{categories.find((category) => category.Id == e.Id_category) ? categories.find((category) => category.Id == e.Id_category).Name : 'Extra'}</p>    
                                     <p>R$ {e.Value}</p>    
                                 </div> )
                             }

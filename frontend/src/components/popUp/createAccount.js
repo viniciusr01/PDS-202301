@@ -33,7 +33,9 @@ function CreateAccount({ display, setDisplay, user }){
             }
             ).then(info => {
                 console.log(info)
-                const conta = info
+
+                const conta = info.data
+                
                 if(saldo != 0){
                     const date = new Date()
                     api.post('/transaction/', {
@@ -42,11 +44,11 @@ function CreateAccount({ display, setDisplay, user }){
                         },
                         "transaction": {
                             "description": "Correção de Saldo Inicial",
-                            "value": saldo,
-                            "reference_date": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
+                            "value": saldo < 0 ?  saldo * -1 :  saldo,
+                            "reference_date": date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
                             "id_account": conta,
                             "id_category": 1, // TODO CORRIGIR CATEGORIA
-                            "type":  2,
+                            "type":  saldo < 0 ? 2 : 1,
                             "expense_type": 1
                         }}).then((res) => {
                             console.log(res)

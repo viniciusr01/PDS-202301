@@ -4,13 +4,10 @@ import "./createAccount.css"
 import { useState, useEffect } from "react";
 
 
-function CreateCategory({ display, setDisplay }){
+function CreateCategory({ display, setDisplay, user }){
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [cor, setCor] = useState("");
-
-
-    const user = JSON.parse(localStorage.getItem('cpf'));
 
     function criaCategoria(nome, descricao, cor){
 
