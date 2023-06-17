@@ -61,17 +61,17 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate, font
                         <option value="receita">Receita</option>
                     </select>
 
-                    <div className="grid insert_transaction_input_group">
-                        <input type="text" className="pop_up_input" placeholder="R$0.00" 
+                    <div  className="grid insert_transaction_input_group">
+                        <input cypress_teste='valor_reais' type="text" className="pop_up_input" placeholder="R$0.00" 
                             onChange={(e)=>{
                                 setValor(e.target.value)                                
                                 }}/>
-                        <input className="pop_up_input" placeholder="Data"
+                        <input cypress_teste='data_transacao' className="pop_up_input" placeholder="Data"
                             onChange={(e)=>{setData(e.target.value)}}/>
-                        <input className="pop_up_input" placeholder="Descrição"
+                        <input cypress_teste='descricao_transacao' className="pop_up_input" placeholder="Descrição"
                             onChange={(e)=>{setDescricao(e.target.value)}}/>
                         <div className="grid pop_up_input_group_line">
-                            <select className="pop_up_input" placeholder="Fonte de Pagamento"
+                            <select cypress_teste='placeConta' className="pop_up_input" placeholder="Fonte de Pagamento"
                                 onChange={(e)=>{setFontePagamento(e.target.value)}}>
                                     {fontesDePagamento.map( e => {
                                         return(
@@ -95,7 +95,7 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate, font
                     </div>
                     <div className="pop_up_button_group">
                         <button className="botao_voltar" onClick={() => setDisplay('none')}>Voltar</button>
-                        <button className="botao_confirmar" onClick={() => criaTransacao()}>Criar</button>
+                        <button cypress_teste='button_confirmar_transation' className="botao_confirmar" onClick={() => criaTransacao()}>Criar</button>
                     </div>
 
                 </div>

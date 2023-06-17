@@ -126,10 +126,10 @@ function Principal(){
                 <div></div>
                 <div className='grid principal_bloco_principal_container'>
                     <div className='flex principal_botoes'>
-                        <button className='botao_receita_despesa' onClick={criaModalReceita}>+ Receita</button>
-                        <button className='botao_receita_despesa' onClick={criaModalDespesa}>+ Despesa</button>
-                        <button className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+ Conta</button>
-                        <button className='botao_receita_despesa' onClick={() => setModalCategory('inline')}>+ Categoria</button>
+                        <button cypress_teste='buttonReceita' className='botao_receita_despesa' onClick={criaModalReceita}>+ Receita</button>
+                        <button cypress_teste='buttonDespesa' className='botao_receita_despesa' onClick={criaModalDespesa}>+ Despesa</button>
+                        <button cypress_teste='buttonConta' className='botao_receita_despesa' onClick={() => setModalConta('inline')}>+ Conta</button>
+                        <button cypress_teste='buttonCategoria' className='botao_receita_despesa' onClick={() => setModalCategory('inline')}>+ Categoria</button>
                     </div>
                     <div className='grid principal_cards_menores'>
                         <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
