@@ -56,6 +56,8 @@ function CreateAccount({ display, setDisplay, user }){
                     }).catch((err) => {
                         console.error(err);
                     })
+                } else {
+                    window.location.reload();
                 }
         })
 

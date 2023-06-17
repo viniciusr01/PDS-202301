@@ -17,5 +17,6 @@ class CategoryFactory:
             name=obj['name'],
             description=obj['description'],
             color=obj['color'],
-            user_cpf=obj['user_cpf']
+            user_cpf=obj['user_cpf'],
+            id=0
         )

@@ -11,7 +11,7 @@ import CreateCategory from '../components/popUp/createCategory';
 import Header from '../components/header';
 import { PieChart, Pie, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts';
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 
 function Principal(){
@@ -136,11 +136,11 @@ function Principal(){
                             <h5>Saldo Atual <ArrowForwardIosIcon/> </h5>
                             <p>R$ {balance}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=receita')}>
                             <h5>Receitas <ArrowForwardIosIcon/> </h5>
                             <p>R$ {incomes}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor' onClick={() => navigate("/account")}>
+                        <div className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=despesa')}>
                             <h5>Despesas <ArrowForwardIosIcon/> </h5>
                             <p>R$ {expenses}</p>
                         </div>
@@ -158,7 +158,7 @@ function Principal(){
                                         <PieChart width={300} height={250}>
                                             <Pie data={dataGraphCircle.Expenses} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
-                                        <p  onClick={() => navigate("/account")}>VER MAIS</p>
+                                        <p  onClick={() => navigate('/account?select=despesa')}>VER MAIS</p>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@ function Principal(){
                                         <PieChart width={300} height={250}>
                                             <Pie data={dataGraphCircle.Incomes} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#F7BC0A" label />
                                         </PieChart>
-                                        <p  onClick={() => navigate("/account")}>VER MAIS</p>
+                                        <p  onClick={() => navigate('/account?select=receita')}>VER MAIS</p>
                                     </div>
                                 </div>
                             </div>

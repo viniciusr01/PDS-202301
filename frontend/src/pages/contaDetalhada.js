@@ -25,16 +25,18 @@ const meses = [
 function ContaDetalhada(){
     const date = new Date();
 
-    const [select, setSelect] = useState();
+    const queryParameters = new URLSearchParams(window.location.search)
+    const [select, setSelect] = useState(queryParameters.get("select") ? queryParameters.get("select") : "receita" );
     const [mes, setMes] = useState(date.getMonth() + 1);
     const [ano, setAno] = useState(date.getFullYear());
-
-
+    
+    
     const [receitas, setReceitas]  = useState(JSON.parse(localStorage.getItem('incomes')))
     const [despesas, setDespesas] = useState(JSON.parse(localStorage.getItem('expenses')))
     const accounts = JSON.parse(localStorage.getItem('accounts'))
     const categories = JSON.parse(localStorage.getItem('categories'))
     const user = JSON.parse(localStorage.getItem('cpf'))
+
 
     useEffect(()=> {
         let mesAux = mes + 1
@@ -134,7 +136,7 @@ function ContaDetalhada(){
                                 <p>{e.Reference_date}</p>    
                                 <p>{e.Description}</p>    
                                 <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
-                                <p>{categories.find((category) => category.Id == e.Id_category)?.Name}</p>    
+                                <p>{categories.find((category) => category.Id == e.Id_category) ? categories.find((category) => category.Id == e.Id_category).Name : 'Extra'}</p>    
                                 <p>R$ {e.Value}</p>    
                             </div> )
                         })}

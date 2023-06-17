@@ -21,6 +21,8 @@ function CreateCategory({ display, setDisplay, user }){
             }
        }
 
+       console.log(dataToSend);
+
        fetch('http://localhost:8000/category/',{
             method:'POST',
             headers:{
@@ -28,8 +30,10 @@ function CreateCategory({ display, setDisplay, user }){
             },
             body: JSON.stringify(dataToSend),
        })
-       .then( res =>  console.log(res))
-       .catch((err) => {
+       .then((res) => { 
+                console.log(res) 
+                window.location.reload()
+        }).catch((err) => {
             console.error(err);
        })
     }

@@ -11,6 +11,11 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate, font
     const [fontePagamento, setFontePagamento] = useState(fontesDePagamento[0]?.Id)
     const [categoria, setCategoria] = useState('')
 
+    useEffect(()=>{
+        setFontePagamento(fontesDePagamento[0]?.Id);
+        setCategoria(categories[0]?.Id);
+    }, [fontesDePagamento, categories])
+
     const criaTransacao = () => {
         console.log(
             {
@@ -19,7 +24,7 @@ function InsertTransaction({ display, setDisplay, type, setType, setUpdate, font
                 },
                 "transaction": {
                     "description": descricao,
-                    "value": parseFloat(valor),
+                    "value": valor,
                     "reference_date": data,
                     "id_account": fontePagamento,
                     "id_category": categoria,
