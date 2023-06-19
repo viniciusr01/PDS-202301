@@ -120,12 +120,12 @@ function ContaDetalhada(){
                         select == 'receita'?
                         receitas.map(
                             e => { return(
-                                <div className="conta_detalhada_linha">
+                                <div   className="conta_detalhada_linha">
                                     <p>{e.Reference_date}</p>    
-                                    <p>{e.Description}</p>    
+                                    <p cypress_teste='descriacaoTransacao' >{e.Description}</p>    
                                     <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
                                     <p>{categories.find((category) => category.Id == e.Id_category) ? categories.find((category) => category.Id == e.Id_category).Name : 'Extra'}</p>    
-                                    <p>R$ {e.Value}</p>    
+                                    <p cypress_teste='valorTransacao'>R$ {e.Value}</p>    
                                 </div> )
                             }
                         )
@@ -134,10 +134,10 @@ function ContaDetalhada(){
                             e => { return(
                             <div className="conta_detalhada_linha">
                                 <p>{e.Reference_date}</p>    
-                                <p>{e.Description}</p>    
+                                <p cypress_teste='descriacaoTransacaoDespesa'>{e.Description}</p>    
                                 <p>{accounts.find((account) => account.Id == e.Id_account).Name}</p>    
                                 <p>{categories.find((category) => category.Id == e.Id_category) ? categories.find((category) => category.Id == e.Id_category).Name : 'Extra'}</p>    
-                                <p>R$ {e.Value}</p>    
+                                <p cypress_teste='valorTransacaoDespesa'>R$ {e.Value}</p>    
                             </div> )
                         })}
                     </div>

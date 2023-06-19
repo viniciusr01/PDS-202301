@@ -42,7 +42,7 @@ function Home(){
                             &ensp;
                             &ensp;
                             */}
-                            <button className={styles.botao_cadastrar}  onClick={getLogin}>Login</button>
+                            <button cypress_teste='buttonLogin' className={styles.botao_cadastrar}  onClick={getLogin}>Login</button>
 
                         </div>
                     </Grid>
