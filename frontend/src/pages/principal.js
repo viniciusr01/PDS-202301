@@ -136,11 +136,11 @@ function Principal(){
                             <h5>Saldo Atual <ArrowForwardIosIcon/> </h5>
                             <p>R$ {balance}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=receita')}>
+                        <div cypress_teste='receitaCard' className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=receita')}>
                             <h5>Receitas <ArrowForwardIosIcon/> </h5>
-                            <p>R$ {incomes}</p>
+                            <p >R$ {incomes}</p>
                         </div>
-                        <div className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=despesa')}>
+                        <div cypress_teste='despesaCard' className='flex shadow principal_card_menor' onClick={() => navigate('/account?select=despesa')}>
                             <h5>Despesas <ArrowForwardIosIcon/> </h5>
                             <p>R$ {expenses}</p>
                         </div>
