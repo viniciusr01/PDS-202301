@@ -1,5 +1,5 @@
 from src.domain.entities.Transaction import Transaction
-from src.domain.services.MakeTransaction import MakeTransaction
+#from src.domain.services.MakeTransaction import MakeTransaction
 from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.TransactionFactory import TransactionFactory
 from src.domain.value_objects.TransactionType import TransactionType
