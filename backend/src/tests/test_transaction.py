@@ -1,4 +1,6 @@
 from src.domain.entities.Transaction import Transaction
+from src.domain.entities.Expense import Expense
+from src.domain.entities.Income import Income
 from src.domain.services.MakeTransaction import MakeTransaction
 from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.gates.TransactionFactory import TransactionFactory
@@ -92,3 +94,19 @@ def test_should_not_make_transaction_factory_with_expense_and_income_types() -> 
             "type": TransactionType.Expense.value,
             "expense_type": ""
         })
+
+def test_make_transaction_expense(monkeypatch: pytest.MonkeyPatch) -> None:
+    expense = Expense('Test description', 100, '2022-07-07', 1)
+    monkeypatch.setattr(SqlAdapter, "AddExpense", lambda x, y: None)
+    res = MakeTransaction(SqlAdapter()).make(expense)
+    assert res == "The expense was successfully added."
+
+def test_make_transaction_income(monkeypatch: pytest.MonkeyPatch) -> None:
+    income = Income("Test income", 100, "2023-07-07", 1, 0)
+    monkeypatch.setattr(SqlAdapter, "AddIncome", lambda x, y: None)
+    res = MakeTransaction(SqlAdapter()).make(income)
+    assert res == "The income was successfully added."
+
+def test_should_not_make_transaction_invalid_transaction_type() -> None:
+    with pytest.raises(Exception):
+        res = MakeTransaction(SqlAdapter()).make("")
