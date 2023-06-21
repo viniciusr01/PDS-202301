@@ -1,5 +1,7 @@
 from src.domain.entities.Account import Account
 from src.domain.gates.AccountFactory import AccountFactory
+from src.domain.services.MakeAccount import MakeAccount
+from src.adapters.SqlAdapter import SqlAdapter
 from src.domain.value_objects.DefaultColor import DefaultColor
 import pytest
 
@@ -38,3 +40,9 @@ def test_should_not_make_account_factory_without_keys() -> None:
     }
     with pytest.raises(TypeError) as e:
         AccountFactory().make(obj)
+
+def test_make_account(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(SqlAdapter, "AddAccount", lambda x, y: "Test")
+    account = Account(0, "Test", "Description Test", 0, "F7BC0A", 0, "11111111111")
+    res = MakeAccount(SqlAdapter()).make(account)
+    assert res == "Test"
