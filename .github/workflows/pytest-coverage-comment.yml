@@ -21,6 +21,5 @@ jobs:
           if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
 
       - name: Run Unit Tests
-        run: |
-          coverage run -m pytest --cov=backend/src
+        run: python -m pytest /backend
 
