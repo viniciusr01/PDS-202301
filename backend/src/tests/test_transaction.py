@@ -12,3 +12,5 @@ def test_create_transaction() -> None:
 def test_should_not_create_transaction_with_invalid_date() -> None:
     with pytest.raises(Exception):
         transaction = Transaction("Teste", 0, "", 1)
+
+

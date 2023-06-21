@@ -37,3 +37,9 @@ def test_should_not_be_able_to_make_retrieve_extract_in_a_period(monkeypatch: py
     with pytest.raises(TypeError):
         extract = RetrieveExtractInAPeriod(SqlAdapter()).make("11111111111", '',"2022-07-07")
 
+def test_retrieve_extract_in_a_period_dto() -> None:
+    income = Income("Test income", 100, "2023-07-07", 1, 0)
+    expense = Expense('Test description', 100, '2022-07-07', 1)
+    extract = RetrieveExtractDTO().make(Extract(0, [expense], [income]))
+    assert len(extract['Incomes']) == 1
+    assert len(extract['Expenses']) == 1
