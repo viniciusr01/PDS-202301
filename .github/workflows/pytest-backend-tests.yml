@@ -2,7 +2,7 @@ name: MoneyHive brach test
 
 on:
   push:
-    branches: [ "feature/backend-tests" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
