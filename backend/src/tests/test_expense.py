@@ -23,3 +23,8 @@ def test_retrieve_expenses_in_a_period(monkeypatch: pytest.MonkeyPatch) -> None:
 
     expenses = RetrieveExpensesInAPeriod(SqlAdapter()).make("11111111111", date(2022,7,7))
     assert len(expenses) == 1
+
+def test_retrieve_expenses_dto() -> None:
+    expense = Expense('Test description', 100, '2022-07-07', 1)
+    expenses = RetrieveExpensesDTO().make([expense])
+    assert len(expenses) == 1
