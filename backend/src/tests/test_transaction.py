@@ -31,3 +31,64 @@ def test_make_transaction_factory() -> None:
     assert transaction.value == 0
     assert transaction.reference_date == date(2023,7,7)
     assert transaction.id_category == 1
+
+def test_should_not_make_transaction_factory_without_keys() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "expense_type": 1,
+        })
+
+def test_should_not_make_transaction_factory_without_transaction_type() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "description": "Teste",
+            "value": 0,
+            "reference_date": "2023-07-07",
+            "id_category": 1
+        })
+
+def test_should_not_make_transaction_factory_with_invalid_transaction_type() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "description": "Teste",
+            "value": 0,
+            "reference_date": "2023-07-07",
+            "id_category": 1,
+            "type": "",
+            "expense_type": 1,
+            "id_account": 1
+        })
+
+
+def test_should_not_make_transaction_factory_without_keys_for_expense() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "description": "Teste",
+            "value": 0,
+            "reference_date": "2023-07-07",
+            "id_category": 1,
+            "type": TransactionType.Expense.value,
+        })
+
+def test_should_not_make_transaction_factory_with_expense_and_income_types() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "description": "Teste",
+            "value": 0,
+            "reference_date": "2023-07-07",
+            "id_category": 1,
+            "type": TransactionType.Expense.value,
+            "expense_type": 1,
+            "income_type": 1
+        })
+
+def test_should_not_make_transaction_factory_with_expense_and_income_types() -> None:
+    with pytest.raises(TypeError):
+        transaction = TransactionFactory().make({
+            "description": "Teste",
+            "value": 0,
+            "reference_date": "2023-07-07",
+            "id_category": 1,
+            "type": TransactionType.Expense.value,
+            "expense_type": ""
+        })
