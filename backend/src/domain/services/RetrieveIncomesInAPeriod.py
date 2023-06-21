@@ -12,11 +12,11 @@ class RetrieveIncomesInAPeriod():
         incomes = []
         accounts = []
 
-        accounts = self.db.RetrieveAccountsFromUser(user_cpf=user_id)
+        accounts = self.db.RetrieveAccountsFromUser(user_id)
 
         for account in accounts:
-            incomes = incomes + self.db.RetrieveIncomesFromAccount(id_account = account.id,
-                                                                   initial_date = initial_date,
-                                                                   end_date = end_date)
+            incomes = incomes + self.db.RetrieveIncomesFromAccount(account.id,
+                                                                   initial_date,
+                                                                   end_date)
                                                             
         return incomes
