@@ -1,4 +1,4 @@
-name: MoneyHive brach test
+name: MoneyHive Test
 
 on:
   push:
