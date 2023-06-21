@@ -7,6 +7,6 @@ class RetrieveCategories():
 
     def make(self, user_id: str) -> list[Category]:
 
-        res = self.db.RetrieveCategoriesFromUser(user_cpf=user_id)
+        res = self.db.RetrieveCategoriesFromUser(user_id)
 
         return res
