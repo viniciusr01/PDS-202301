@@ -22,33 +22,33 @@ class RetrieveExtractInAPeriod():
         
         if type == AccountType.CreditCard.value:
             if number_of_days is None:
-                expenses = self.db.RetrieveExpensesFromAccount(id_credit_card = account_id, 
-                                                               initial_date = initial_date, 
-                                                               end_date = end_date)    
+                expenses = self.db.RetrieveExpensesFromAccount(account_id, 
+                                                               initial_date, 
+                                                               end_date)    
                 
             else:
-                expenses = self.db.RetrieveExpensesFromAccount(id_credit_card = account_id, 
-                                                               initial_date = initial_date, 
-                                                               end_date = initial_date + relativedelta(days = number_of_days))  
+                expenses = self.db.RetrieveExpensesFromAccount(account_id, 
+                                                               initial_date, 
+                                                               initial_date + relativedelta(days = number_of_days))  
 
         elif type == AccountType.BankAccount.value:
             if number_of_days is None:
-                expenses = self.db.RetrieveExpensesFromAccount(id_account = account_id, 
-                                                               initial_date = initial_date, 
-                                                               end_date = end_date)    
+                expenses = self.db.RetrieveExpensesFromAccount(account_id, 
+                                                               initial_date, 
+                                                               end_date)    
                 
-                incomes = self.db.RetrieveIncomesFromAccount(id_account = account_id, 
-                                                            initial_date = initial_date, 
-                                                            end_date = end_date)
+                incomes = self.db.RetrieveIncomesFromAccount(account_id, 
+                                                            initial_date, 
+                                                            end_date)
                 
             else:
-                expenses = self.db.RetrieveExpensesFromAccount(id_account = account_id, 
-                                                               initial_date = initial_date, 
-                                                               end_date = initial_date + relativedelta(days = number_of_days)) 
+                expenses = self.db.RetrieveExpensesFromAccount(account_id, 
+                                                               initial_date, 
+                                                               initial_date + relativedelta(days = number_of_days)) 
                 
-                incomes = self.db.RetrieveIncomesFromAccount(id_account = account_id, 
-                                                               initial_date = initial_date, 
-                                                               end_date = initial_date + relativedelta(days = number_of_days)) 
+                incomes = self.db.RetrieveIncomesFromAccount(account_id, 
+                                                               initial_date, 
+                                                               initial_date + relativedelta(days = number_of_days)) 
 
         else:
             raise TypeError("Type should be from AccountType")
