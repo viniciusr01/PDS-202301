@@ -14,13 +14,13 @@ class RetrieveExpensesInAPeriod():
         credit_card_expenses = []
         bank_account_expenses = []
 
-        credit_cards = self.db.RetrieveCreditCardsFromUser(user_cpf=user_id,date=date.today())
-        bank_accounts = self.db.RetrieveAccountsFromUser(user_cpf=user_id)
+        credit_cards = self.db.RetrieveCreditCardsFromUser(user_id,date.today())
+        bank_accounts = self.db.RetrieveAccountsFromUser(user_id)
 
         for credit_card in credit_cards:
-            credit_card_expenses = credit_card_expenses + self.db.RetrieveExpensesFromAccount(id_credit_card = credit_card.id,
-                                                                                              initial_date = initial_date,
-                                                                                              end_date = end_date)
+            credit_card_expenses = credit_card_expenses + self.db.RetrieveExpensesFromAccount(credit_card.id,
+                                                                                              initial_date,
+                                                                                              end_date)
                                                                     
         for bank_account in bank_accounts:
             bank_account_expenses = bank_account_expenses + self.db.RetrieveExpensesFromAccount(id_account = bank_account.id,
